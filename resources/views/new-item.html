@@ -1,0 +1,58 @@
+<md-dialog aria-label="{{Type}} Item">
+<form name="CampaignCreate" ng-submit="createItem();">
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>{{Type}} Item</h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-12">
+				<label>Item Name</label>
+				<input type="text" class="form-control" ng-model="form.IName" name="Name" required="">
+			</div>										
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-12">
+				<label>HSN Code</label>
+
+				<md-input-container style="width: 100%;margin-top: -2px;">
+				<md-select ng-model="form.HID" required="true" class="form-control" name="State">
+					<md-option ng-repeat="state in Hsn" value="{{state.HID}}">{{state.HSN}} - {{state.GST}} %</md-option>
+				</md-select>
+				</md-input-container>
+			</div>
+		<!-- 	<div class="col-sm-6" >
+				<label>Unit Price</label>
+				<input type="number" step="0.01" class="form-control" ng-model="form.SRate" name="SRate">
+			</div> -->
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-12">
+				<label>Description</label>
+				<textarea type="text" class="form-control" ng-model="form.IDesc" name="IDesc"></textarea>
+			</div>
+		</div>
+	</div>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions layout="row">
+  <span flex></span>
+  <md-button ng-click="hide()">
+   Cancel
+  </md-button>
+  <button type="submit" class="btn bg-indigo">Save</button>
+</md-dialog-actions>
+ </form>
+</md-dialog>

@@ -1,0 +1,558 @@
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-flat">
+
+<div class="navbar navbar-default navbar-xs navbar-component">
+<md-content layout-padding>
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <ul class="nav navbar-nav pull-right"> 
+            <li>
+              <md-switch style="margin: 10px;" ng-model="header"></md-switch>
+            </li>                             
+            
+            <li>
+                <button class="btn btn-info" ng-click="print('.printpage')">Export</button>
+            </li>
+
+            <li style="padding-left: 20px;">
+                <button class="btn btn-info" md-colors="{background: 'pink'}" ng-click="mailto($event)">Mail To</button>
+            </li>
+
+        </ul>
+    </div>
+</md-content>
+</div>
+</div>
+</div>
+</div>
+
+
+<style type="text/css">
+  #tbody{
+    background:url(assets/s.jpg) center center no-repeat;
+    background-size: 40%;
+  }
+  .no_border td{
+    border-bottom: 0px;
+    border-top: 0px;
+  }
+</style>
+
+<style type="text/css" ng-if="header === true">
+  #tbody{
+    background: none;
+  }
+</style>
+
+<div id="example">
+
+<div ng-show="url">
+<iframe ng-src="{{url|trustAsResourceUrl}}" style="width: 100%;height: calc(100vh - 225px)" frameborder="0" allowfullscreen></iframe>
+</div>
+
+    <div class="page-container hidden-on-narrow print" >
+        <div class="printpage">
+            <div class="pdf-page size-a4"   >
+                <div class="pdf-header">
+                    <div class="container" align="center" style="padding-top: 25px;padding-left: 25px;padding-right: 25px;">
+                        <h5 ng-class="{'headernone':header === true}" style="font-size: 12px;margin-bottom: 0;"><b></b></h5>
+                        
+                        <P style="text-align:right;margin:-10px 0 0 0;">{{invs}}</P>
+                        <table id="tbody" ng-if="data.State==32" >
+
+                            <tr ng-hide="header === true">
+
+                              <!-- <td colspan="7" style="text-align: left;">
+                                  
+                                        <div style="width: 80%;float: left;margin-left: 2%">
+                                        <b style="font-size: 25px;">SOURCE SHIPPING (INDIA) PVT LTD</b><br>
+                                        <p>No.6. Muthusamy Street Extn.,  3rd Cross, Odddakkadu, Tirupur - 641 602<br>
+                                          <b>Ph : </b>+91 421 4331416, 2232111 <b>Email : </b><a href="">tirupur@sourceshippingindia.com</a><br>
+                                          <b>GSTIN :</b> 33AANCS5251R1ZO  <b>PAN NO :</b> AANCS5251R  <b>STATE :</b> Tamilnadu (33) <br>
+                                          <b>CIN :</b>U63010TZ2009PTC015444
+                                        </p>
+
+                                        </div>
+
+                                        <div  style="width: 11%;float: left;">
+                                          <img src="assets/ssipl.jpg" alt="" style="width: 168%">                                  
+                                        </div>
+
+                                  </td> -->
+
+                                <td colspan="11" style="text-align: right;">
+                                  <div  style="width: 11%;float: left;margin-left: 3%;">
+                                    <img src="assets/ssipl.jpg" alt="" style="width: 168%">                                  
+                                  </div>
+                                  <div style="width: 84%;float: left">
+                                  <b style="font-size: 25px;color:rgb(124, 46, 33);">SOURCE SHIPPING (INDIA) PVT LTD</b><br>
+                                  <p>No.6. Muthusamy Street Extn.,  3rd Cross, Odddakkadu, Tirupur - 641 602<br>
+                                    <b>Ph : </b>+91 421 4331416, 2232111 <b>Email : </b><a href="">tirupur@sourceshippingindia.com</a><br>
+                                    <b>GSTIN :</b> 33AANCS5251R1ZO  <b>PAN NO :</b> AANCS5251R  <b>STATE :</b> Tamilnadu (33) <br><b>CIN :</b>U63010TZ2009PTC015444
+                                  </p>
+
+                                  </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" rowspan="2">
+                                    <b>{{data.CName}}</b><br>
+                                    <p style="white-space: pre-line;">{{data.Address}}</p>
+                                    <br>
+                                    <b>GSTIN No : {{data.TIN}}</b>  
+                                </td>
+                                <td colspan="7" style="text-align: center;font-weight: bold;"> PROFORMA / QUOTATION </td>
+                            </tr>
+                            <tr>
+                                 <td colspan="3" style="text-align: right;border-right: none;font-weight: bold;"> PROFORMA NO :<br>PROFORMA DATE :<br>JOB NO : </td>
+                                  <td colspan="4" style="border-left: none;"> {{data.InvThr}}/{{data.InvTy}}/{{data.ProNo}} <br>{{data.Date*1000|date:'dd.MM.yyyy'}} <br>{{data.InvFrom}}/{{data.InvTy}}/{{data.Job}}  </td>
+                            </tr>
+                          
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>ITEM</b> </td>
+                                <td colspan="1" style="width: 33%;">{{data.Ite}}  </td>
+                                <td colspan="3" style="text-align: right;">     <b>CONSIGNEE</b> </td>
+
+                                 <td colspan="4">{{data.Cons}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>PACKAGES </b></td>
+                                 <td colspan="1"> {{data.Pac}} PKGS</td>
+                                <td colspan="3" style="text-align: right;">  <b>AWBL /B/LNO. </b> </td>
+                                <td colspan="4">  <b></b> {{data.Awbl}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>FLIGHT/VESSEL </b> </td>
+                                 <td colspan="1"> {{data.Fli}} </td>
+                                <td colspan="3" style="text-align: right;">   <b>  ORIGIN / DESTINATION </b> </td>
+                                <td colspan="4">   <b> </b> {{data.Dest}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>S.B/B.E.No </b>  </td>
+                                 <td colspan="1"> {{data.Sb}} </td>
+                                <td colspan="3" style="text-align: right;"> <b> EXPORT / IMPORT INVOICE NO </b> </td>
+                                <td colspan="4"> <b></b> {{data.InNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>G.R. WT </b> </td>
+                                 <td colspan="1"> {{data.Gr}}</td>
+                                <td colspan="3" style="text-align: right;"><b>FLIGHT NO /CONTAINER NO </b> </td>
+                                <td colspan="4"><b></b>  {{data.FliNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><b>CBM / VOL</b> </td>
+                                 <td colspan="1"> {{data.Cbm}}</td>
+                                <td colspan="3" style="text-align: right;"><b>EX.RT </b> </td>
+                                <td colspan="4"><b></b>  {{data.ExRt}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="width: 6%;text-align: center;" rowspan="2"><b>SL.No.</b></td>
+                                <td colspan="3" style="width: 60%;text-align: center;" rowspan="2"><b>PARTICULARS</b></td>
+                                 <td style="width: 9%;text-align: center;" rowspan="2"><b>HSN / SAC</b></td>
+                                 <td style="width: 15%;text-align: center;" colspan="2"><b>CGST</b></td>
+                                 <td style="width: 15%;text-align: center;" colspan="2"><b>SGST</b></td>
+                                <td style="text-align: center;width: 9%;" rowspan="2"><b>AMOUNT</b></td>
+                            </tr>
+
+                            <tr >
+                               <td colspan="1" style="width: 7%;padding: 1px;text-align: center;"><b>RATE</b></td>
+                               <td colspan="1" style="width: 10%;padding: 1px;text-align: center;"><b>AMOUNT</b></td>
+                               <td colspan="1" style="width: 7%;padding: 1px;text-align: center;"><b>RATE</b></td>
+                               <td colspan="1" style="width: 10%;padding: 1px;text-align: center;"><b>AMOUNT</b></td>
+                          </tr>       
+
+                             <tr ng-repeat="de in data.proforma_details" class="no_border">
+                                <td colspan="2" style="text-align: center;">{{$index+1}}</td>
+                                <td colspan="3">{{de.IName}}</td>
+                                <td colspan="1" style="text-align: center;">{{de.HSN}}</td>
+                                <td style="text-align: center;" class="tdata amt">
+                                  <span ng-if="de.HSN!='996531'">{{de.RCGST}}%</span>
+                                  <span ng-if="de.HSN=='996531'" style="font-size: 11px;">EXEMPT</span>
+                                </td>
+                                <td style="text-align: center;" class="tdata amt">{{de.CGST| currency : "" : 2}}</td>
+                                <td style="text-align: center;" class="tdata amt">
+                                  <span ng-if="de.HSN!='996531'">{{de.RSGST}}%</span>
+                                  <span ng-if="de.HSN=='996531'" style="font-size: 11px;">EXEMPT</span>
+                                </td>
+                                <td style="text-align: center;" class="tdata amt">{{de.SGST| currency : "" : 2}}</td>
+                                <td colspan="1" style="text-align: right;">{{de.Amount| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr ng-style="myheight" class="no_border">
+                                <td colspan="2"></td>
+                                <td colspan="3"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                <td colspan="1"></td>
+                            </tr>
+                            <tr >
+                                <td colspan="5" rowspan="4">
+                                  <b>NEFT or RTGS:</b><br>
+                                  <b style="padding-right: 29px;">Bank Name</b> : THE KARUR VYSYA BANK LTD<br>
+                                  <b style="padding-right: 54px;">Branch</b> : TIRUPUR MAIN<br>
+                                  <b style="padding-right: 14px;">Account Name</b> : SOURCE SHIPPING INDIA PVT LTD<br>
+                                  <b style="padding-right: 27px;">Account No</b> : 1197135000001609<br>
+                                  <b style="padding-right: 63px;">IFSC</b> : KVBL0001197<br>
+                                </td>
+
+                                 <td colspan="3" ><b>Taxable Value</b></td>
+                                <td colspan="3" style="text-align: right;">{{data.Amount| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+
+                                 <td colspan="3"><b>Add CGST &nbsp;</b></td>
+                                 <td colspan="3" style="text-align: right;">{{data.CGST| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+
+                                 <td colspan="3"><b>Add SGST &nbsp;</b></td>
+                                 <td colspan="3" style="text-align: right;">{{data.SGST| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+                                 <td colspan="3"><b>Add IGST &nbsp;&nbsp;</b></td>
+                                 <td colspan="3" style="text-align: right;">{{data.IGST| currency : "" : 2}}</td>
+                            <tr >
+                                <td colspan="7" ><b>*** Rupees {{data.Total|words}} Only</b></td>
+                                 <td colspan="3"><b>Payable Rs:</b></td>
+                                 <td colspan="3" style="text-align: right;">{{data.Total| currency : "" : 2}}</td>
+
+                            </tr>
+
+                             <tr >
+                                <td colspan="6" >
+                                <b>TERMS & CONDITION</b><br>
+                                1. All invoices to paid within 7 days of the date of invoice.<br>                   
+                                2. Payment should be dy demand draft/crossed account payee cheque in favour of<br> SOURCE SHIPPING INDIA PVT LTD PAYABLE AT TIRUPUR   <br>                     
+                                3. Any objection / discrepancy of the bills. No deduction form the bill will be acceptable.<br>
+                                4. This is an electronically generated invoice, it does not require a signature.<br> It should be considered an Original.<br></td>
+                                 <td colspan="5 " style="text-align: center;font-weight: bold;">
+                                 For, SOURCE SHIPPING (I) PVT LTD<br><br><br><br><br>
+
+
+                                 Authorized Signature 
+
+                                </td>
+                            </tr>                               
+
+
+                        </table>
+                        <table id="tbody"  ng-if="data.State!=32">
+
+                            <tr ng-hide="header === true">
+
+                              <!-- <td colspan="7" style="text-align: left;">
+                                  
+                                        <div style="width: 80%;float: left;margin-left: 2%">
+                                        <b style="font-size: 25px;">SOURCE SHIPPING (INDIA) PVT LTD</b><br>
+                                        <p>No.6. Muthusamy Street Extn.,  3rd Cross, Odddakkadu, Tirupur - 641 602<br>
+                                          <b>Ph : </b>+91 421 4331416, 2232111 <b>Email : </b><a href="">tirupur@sourceshippingindia.com</a><br>
+                                          <b>GSTIN :</b> 33AANCS5251R1ZO  <b>PAN NO :</b> AANCS5251R  <b>STATE :</b> Tamilnadu (33) <br>
+                                          <b>CIN :</b>U63010TZ2009PTC015444
+                                        </p>
+
+                                        </div>
+
+                                        <div  style="width: 11%;float: left;">
+                                          <img src="assets/ssipl.jpg" alt="" style="width: 168%">                                  
+                                        </div>
+
+                                  </td> -->
+
+                                <td colspan="9" style="text-align: right;">
+                                  <div  style="width: 11%;float: left;margin-left: 3%;">
+                                    <img src="assets/ssipl.jpg" alt="" style="width: 168%">                                  
+                                  </div>
+                                  <div style="width: 84%;float: left">
+                                  <b style="font-size: 25px;color:rgb(124, 46, 33);">SOURCE SHIPPING (INDIA) PVT LTD</b><br>
+                                  <p>No.6. Muthusamy Street Extn.,  3rd Cross, Odddakkadu, Tirupur - 641 602<br>
+                                    <b>Ph : </b>+91 421 4331416, 2232111 <b>Email : </b><a href="">tirupur@sourceshippingindia.com</a><br>
+                                    <b>GSTIN :</b> 33AANCS5251R1ZO  <b>PAN NO :</b> AANCS5251R  <b>STATE :</b> Tamilnadu (33) <br><b>CIN :</b>U63010TZ2009PTC015444
+                                  </p>
+
+                                  </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" rowspan="2">
+                                    <b>{{data.CName}}</b><br>
+                                    <p style="white-space: pre-line;">{{data.Address}}</p>
+                                    <br>
+                                    <b>GSTIN No : {{data.TIN}}</b>  
+                                </td>
+                                <td colspan="6" style="text-align: center;font-weight: bold;">TAX INVOICE</td>
+                            </tr>
+                            <tr>
+                                 <td colspan="3" style="text-align: right;border-right: none;font-weight: bold;"> INVOICE NO :<br>INVOICE DATE :<br>JOB NO : </td>
+                                  <td colspan="3" style="border-left: none;"> {{data.InvFrom}}/{{data.InvThr}}/{{data.InvTy}}/{{data.InvNo}} <br>{{data.Date*1000|date:'dd.MM.yyyy'}} <br>{{data.InvFrom}}/{{data.InvTy}}/{{data.Job}}  </td>
+                            </tr>
+                          
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>ITEM</b> </td>
+                                <td colspan="1" style="width: 38%;">{{data.Ite}}  </td>
+                                <td colspan="3" style="text-align: right;">     <b>CONSIGNEE</b> </td>
+
+                                 <td colspan="3">{{data.Cons}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>PACKAGES </b></td>
+                                 <td colspan="1"> {{data.Pac}} PKGS</td>
+                                <td colspan="3" style="text-align: right;">  <b>AWBL /B/LNO. </b> </td>
+                                <td colspan="3">  <b></b> {{data.Awbl}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>FLIGHT/VESSEL </b> </td>
+                                 <td colspan="1"> {{data.Fli}} </td>
+                                <td colspan="3" style="text-align: right;">   <b> DESTINATION </b> </td>
+                                <td colspan="3">   <b> </b> {{data.Dest}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>S.B/B.E.No </b>  </td>
+                                 <td colspan="1"> {{data.Sb}} </td>
+                                <td colspan="3" style="text-align: right;"> <b>INVOICE NO </b> </td>
+                                <td colspan="3"> <b></b> {{data.InNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>G.R. WT </b> </td>
+                                 <td colspan="1"> {{data.Gr}}</td>
+                                <td colspan="3" style="text-align: right;"><b>FLIGHT NO /CONTAINER NO </b> </td>
+                                <td colspan="3"><b></b>  {{data.FliNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="text-align: right;"><b>CBM / VOL</b> </td>
+                                 <td colspan="1"> {{data.Cbm}}</td>
+                                <td colspan="3" style="text-align: right;"><b>EX.RT </b> </td>
+                                <td colspan="3"><b></b>  {{data.ExRt}}</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="width: 1%;text-align: center;" rowspan="2"><b>SL.No.</b></td>
+                                <td colspan="3" style="width: 60%;text-align: center;" rowspan="2"><b>PARTICULARS</b></td>
+                                 <td style="width: 9%;text-align: center;" rowspan="2"><b>HSN / SAC</b></td>
+                                 <td style="width: 15%;text-align: center;" colspan="2"><b>IGST</b></td>
+                                <td style="text-align: center;width: 9%;" rowspan="2"><b>AMOUNT</b></td>
+                            </tr>
+
+                            <tr>
+                               <th colspan="1" style="width: 2%;padding: 1px;">Rate</th>
+                               <th colspan="1" style="width: 2%;padding: 1px;">Amount</th>
+                          </tr>       
+
+                             <tr ng-repeat="de in data.details">
+                                <td colspan="2" style="text-align: center;">{{$index+1}}</td>
+                                <td colspan="3">{{de.IName}}</td>
+                                <td colspan="1" style="text-align: center;">{{de.HSN}}</td>
+                                <td style="text-align: center;" class="tdata amt">
+                                  <span ng-if="de.HSN!='996531'">{{de.RIGST}}%</span>
+                                  <span ng-if="de.HSN=='996531'" style="font-size: 11px;">EXEMPT</span>
+                                </td>
+                                <td style="text-align: center;" class="tdata amt">{{de.IGST| currency : "" : 2}}</td>
+                                <td colspan="1" style="text-align: right;">{{de.Amount}}</td>
+                            </tr>
+
+                            <tr ng-style="myheight">
+                                <td colspan="2"></td>
+                                <td colspan="3"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                 <td colspan="1"></td>
+                                <td colspan="1"></td>
+                            </tr>
+                            <tr >
+                                <td colspan="5" rowspan="4">
+                                  <b>NEFT or RTGS:</b><br>
+                                  <b style="padding-right: 29px;">Bank Name</b> : THE KARUR VYSYA BANK LTD<br>
+                                  <b style="padding-right: 54px;">Branch</b> : TIRUPUR MAIN<br>
+                                  <b style="padding-right: 14px;">Account Name</b> : SOURCE SHIPPING INDIA PVT LTD<br>
+                                  <b style="padding-right: 27px;">Account No</b> : 1197135000001609<br>
+                                  <b style="padding-right: 63px;">IFSC</b> : KVBL0001197<br>
+                                </td>
+
+                                 <td colspan="2" ><b>Taxable Value</b></td>
+                                <td colspan="2" style="text-align: right;">{{data.Amount| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+
+                                 <td colspan="2"><b>Add CGST </b></td>
+                                 <td colspan="2" style="text-align: right;">{{data.CGST| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+
+                                 <td colspan="2"><b>Add SGST &nbsp;</b></td>
+                                 <td colspan="2" style="text-align: right;">{{data.SGST| currency : "" : 2}}</td>
+                            </tr>
+
+                            <tr >
+                                 <td colspan="2"><b>Add IGST &nbsp;&nbsp;</b></td>
+                                 <td colspan="2" style="text-align: right;">{{data.IGST| currency : "" : 2}}</td>
+                            <tr >
+                                <td colspan="5" ><b>*** Rupees {{data.Total|words}} Only</b></td>
+                                 <td colspan="2"><b>Payable Rs:</b></td>
+                                 <td colspan="2" style="text-align: right;">{{data.Total| currency : "" : 2}}</td>
+
+                            </tr>
+
+                             <tr >
+                                <td colspan="5" >
+                                <b>TERMS & CONDITION</b><br>
+                                1. All invoices to paid within 7 days of the date of invoice.<br>                   
+                                2. Payment should be dy demand draft/crossed account payee cheque in favour of<br> SOURCE SHIPPING INDIA PVT LTD PAYABLE AT TIRUPUR   <br>                     
+                                3. Any objection / discrepancy of the bills. No deduction form the bill will be acceptable.<br>
+                                4. This is an electronically generated invoice, it does not require a signature.<br> It should be considered an Original.<br></td>
+                                 <td colspan="4 " style="text-align: center;font-weight: bold;">
+                                 For, SOURCE SHIPPING (I) PVT LTD<br><br><br><br><br>
+
+
+                                 Authorized Signature 
+
+                                </td>
+                            </tr>                               
+
+
+                        </table>
+
+
+
+<br>
+
+</div>
+</div>
+</div>
+
+       
+
+
+</div>
+</div>
+
+    <style>
+
+        .pdf-page {
+            margin: 0 auto;
+            box-sizing: border-box;
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,.3);
+            background-color: #fff;
+            color: #333;
+            position: relative;
+
+        }
+
+
+
+       /* .size-a4 { width: 8.3in; height: 11.7in; }*/
+ .size-a4 { width: 8.3in; height: 11.7in; }
+
+             table {
+        width:100%;
+    }
+     table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-family: 'Average', serif;
+        font-size: 12px;
+    }
+     th {
+        padding: 10px;
+        text-align: left;
+        font-family: 'Average', serif;
+        font-size: 12px;
+    }
+
+     td {
+        padding: 3px;
+        text-align: left;
+        font-family: 'Average', serif;
+        font-size: 12px;
+    }
+    .container{
+         width: 21cm;
+  height: 29.7cm; 
+  font-family: 'Average', serif;
+  font-size: 12px;
+  
+    }
+
+.tr td{
+text-align: center;
+border-bottom: 0;
+border-top: 0;
+padding-bottom: 0px;
+font-family: 'Average', serif;
+font-size: 12px;
+}
+
+.sno th{
+    text-align: center;
+    font-size: 12px;
+}
+
+.inv td{
+    padding: 0px;
+    border: none;
+    
+    line-height: 14px;
+    
+    font-family: 'Average', serif;
+    font-size: 12px;
+}
+.headernone{
+  margin-top: 135px;
+}
+    </style>
+ <script>
+      function getPDF(selector) {
+        kendo.drawing.drawDOM($(selector)).then(function(group){
+          kendo.drawing.pdf.toDataURL(group, function(dataURL){
+            window.open(dataURL,'_blank');
+          });
+        });
+      }
+
+    $(document).ready(function() {
+
+
+        $("#paper").kendoDropDownList({
+          change: function() {
+            $(".pdf-page")
+              .removeClass("size-a4")
+              .removeClass("size-letter")
+              .removeClass("size-executive")
+              .addClass(this.value());
+          }
+        });
+    });
+    </script>
+
+<link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet">
+
+
+</div>
+

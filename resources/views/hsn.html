@@ -1,0 +1,65 @@
+<style type="text/css">
+md-select.form-control {
+    margin-top: 0px;
+}
+label{
+	margin-bottom: 0px;
+}
+md-input-container .md-errors-spacer {
+    display: none;
+}
+</style>
+<div class="panel panel-flat">
+
+<div class="navbar navbar-default navbar-xs navbar-component">
+	<ul class="nav navbar-nav no-border visible-xs-block">
+		<li><a class="text-center collapsed legitRipple" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+	</ul>
+	<md-content layout-padding>
+	<div class="navbar-collapse collapse" id="navbar-filter">
+		<ul class="nav navbar-nav">
+			<li>
+				<md-input-container class="md-block" flex-gt-sm style="margin-top: 12px;">
+		            <label>HSN Code</label>
+		            <input ng-model="search.HSN">
+		        </md-input-container>
+			</li>
+
+			<li>
+				<md-button class="md-raised md-primary" ng-click="searchform();">Search</md-button>
+			</li>
+
+		</ul>
+		<ul class="nav navbar-nav pull-right">
+			<li>
+				<md-button ng-click="campcreate($event);" md-colors="{background: 'pink'}" class="md-raised md-ink-ripple" >New HSN</md-button>
+			</li>
+		</ul>
+	</div>
+	</md-content>
+</div>
+
+
+<table ng-table="tableSorting" class="table datatable-sorting dataTable no-footer">
+		<tr ng-repeat="item in $data">
+			<td data-title="'S No'">{{$index+1}}</td>
+			<td data-title="'HSN Code'" sortable="'HSN'">{{item.HSN}}</td>
+			<td data-title="'GST'" sortable="'SRate'">{{item.GST}}</td>
+			<td data-title="'Actions'" class="col-xs-1">
+				<ul class="icons-list">
+				<li class="dropdown">
+					<a href="" ng-click="campedit(item.HID,$index,$event)" class="dropdown-toggle md-primary" data-toggle="dropdown">
+						<i class="glyphicon glyphicon-edit"></i>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a href="" ng-click="delete(item.HID,$index,$event)"  class="dropdown-toggle"  md-colors="{color: 'pink'}" data-toggle="dropdown">
+						<i class="glyphicon glyphicon-trash"></i>
+					</a>
+				</li>
+			</ul>
+			</td>
+		</tr>
+</table>
+		
+</div>

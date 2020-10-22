@@ -1,0 +1,220 @@
+<style type="text/css">
+	md-select.form-control {
+    margin-top: 0px;
+}
+md-input-container .md-errors-spacer {
+    display: none;
+}
+</style>
+<div class="panel panel-flat">
+<div class="panel-body">
+<form name="CampaignCreate" class="form-horizontal" ng-submit="update();">
+<fieldset class="content-group">
+
+<legend class="text-bold">Primary Settings</legend>
+
+<div class="col-sm-6">
+
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Company Name</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.CName" name="CName" required="">
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Name</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.name" name="Name" required="">
+	</div>
+</div>
+
+<div class="form-group" ng-class="{'has-error': formError.UserName[0]}">
+	<label class="control-label col-lg-4">User Name</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.UserName" name="UserName" required="">
+		<span class="help-block">{{formError.UserName[0]}}</span>
+	</div>
+</div>
+
+<div class="form-group" ng-class="{'has-error': formError.Mobile[0]}">
+	<label class="control-label col-lg-4">Mobile No</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.Mobile" name="Mobile" required="">
+		<span class="help-block">{{formError.Mobile[0]}}</span>
+	</div>
+</div>
+
+</div>
+
+<div class="col-sm-6">
+<!-- 
+<div class="form-group">
+	<label class="control-label col-lg-4">Current Password</label>
+	<div class="col-lg-6">
+		<input type="password" class="form-control" ng-model="form.Current" name="Current" placeholder="**********">
+	</div>
+</div> -->
+
+<div class="form-group" ng-class="{'has-error': formError.Password[0]}">
+	<label class="control-label col-lg-4">New Password</label>
+	<div class="col-lg-6">
+		<input type="password" class="form-control" ng-model="form.Password" name="Password" placeholder="**********">
+		<span class="help-block">{{formError.Password[0]}}</span>
+	</div>
+</div>
+
+<div class="form-group" ng-class="{'has-error': formError.RPassword[0]}">
+	<label class="control-label col-lg-4">Retype Password</label>
+	<div class="col-lg-6">
+		<input type="password" class="form-control" ng-model="form.RPassword" name="RPassword" placeholder="**********">
+		<span class="help-block">{{formError.RPassword[0]}}</span>
+	</div>
+</div>
+
+
+
+
+</div>
+
+
+</fieldset>
+
+<fieldset class="content-group">
+
+<legend class="text-bold">Mail Settings</legend>
+
+<div class="col-sm-6">
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Driver</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.Driver" name="Driver" >
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Host</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.Host" name="Host" >
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Port</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.Port" name="Port" >
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Email Address</label>
+	<div class="col-lg-6">
+		<input type="email" class="form-control" ng-model="form.email" name="Email" >
+	</div>
+</div>
+
+</div>
+<div class="col-sm-6">
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Sender Name</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.SenderName" name="SenderName" >
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Encryption</label>
+	<div class="col-lg-6">
+		<input type="text" class="form-control" ng-model="form.Encryption" name="Encryption" >
+	</div>
+</div>
+
+<div class="form-group"  ng-class="{'has-error': formError.MPassword[0]}">
+	<label class="control-label col-lg-4">Mail Password</label>
+	<div class="col-lg-6">
+		<input type="password" class="form-control" ng-model="form.MPassword" name="MPassword" placeholder="**********" >
+		<span class="help-block">{{formError.MPassword[0]}}</span>
+	</div>
+</div>
+
+<div class="form-group"  ng-class="{'has-error': formError.RMPassword[0]}">
+	<label class="control-label col-lg-4">Retype Password</label>
+	<div class="col-lg-6">
+		<input type="password" class="form-control" ng-model="form.RMPassword" name="RMPassword" placeholder="**********" >
+		<span class="help-block">{{formError.RMPassword[0]}}</span>
+		
+	</div>
+</div>
+
+</div>
+</fieldset>
+
+<fieldset class="content-group">
+
+<legend class="text-bold">Invoice Settings</legend>
+
+<div class="col-sm-6">
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Payment Due Days</label>
+	<div class="col-lg-6">
+		<input type="number" string-to-number class="form-control" ng-model="form.Due" name="Due" >
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Invoice From</label>
+	<div class="col-lg-6">
+		<md-input-container md-no-float class="md-block">
+            <md-chips ng-model="form.InvFrom"></md-chips>
+        </md-input-container>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Invoice Through</label>
+	<div class="col-lg-6">
+		<md-input-container md-no-float class="md-block">
+            <md-chips ng-model="form.InvThr"></md-chips>
+        </md-input-container>
+	</div>
+</div>
+
+
+</div>
+<div class="col-sm-6">
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Invoice Type</label>
+	<div class="col-lg-6">
+		<md-input-container md-no-float class="md-block">
+            <md-chips ng-model="form.InvTy"></md-chips>
+        </md-input-container>
+	</div>
+</div>
+
+
+
+<div class="form-group">
+	<label class="control-label col-lg-4">Invoice Options</label>
+	<div class="col-lg-6">
+		<md-input-container md-no-float class="md-block">
+            <md-chips ng-model="form.InvType"></md-chips>
+        </md-input-container>
+	</div>
+</div>
+
+</div>
+</fieldset>
+
+<div class="text-right">
+	<button type="submit" class="btn btn-primary legitRipple">Submit <i class="icon-arrow-right14 position-right"></i></button>
+</div>
+
+</form>
+</div>
+</div>
+

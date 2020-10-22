@@ -1,0 +1,82 @@
+<style type="text/css">
+	md-select.form-control {
+    margin-top: 0px;
+}
+md-input-container .md-errors-spacer {
+    display: none;
+}
+label{
+	margin-bottom: 0px;
+}
+</style>
+
+<div class="panel panel-flat">
+		<div class="navbar navbar-default navbar-xs navbar-component">
+								<ul class="nav navbar-nav no-border visible-xs-block">
+									<li><a class="text-center collapsed legitRipple" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+								</ul>
+
+																<md-content layout-padding>
+								<div class="navbar-collapse collapse" id="navbar-filter">
+									<ul class="nav navbar-nav" style="margin-left: 10px;">
+
+										<li>
+									          <md-autocomplete placeholder="Search Customer Here " style="min-width: 160px;margin-top: 10px;" md-selected-item="search.Customer" md-min-length="0" md-search-text="searchText" md-items="lead in query(searchText)" md-item-text="lead.CName">
+											  <md-item-template>
+											    <span md-highlight-text="searchText"  md-highlight-flags="^i">{{lead.CName}}-{{lead.Name}}</span>
+											  </md-item-template>
+											  <md-not-found>
+											    No matches found.
+											</md-not-found>
+											</md-autocomplete>
+										</li>										
+										<li>
+											<md-input-container>
+            									<label>From Date</label>
+												<md-datepicker ng-model="FromDat" md-open-on-focus ></md-datepicker>
+											</md-input-container>
+										</li>
+										<li>
+											<md-input-container>
+            									<label>To Date</label>
+												<md-datepicker ng-model="ToDat" md-open-on-focus md-min-date="FromDat"></md-datepicker>
+											</md-input-container>
+										</li>
+
+										<li>
+											<md-input-container class="md-block" flex-gt-sm>
+									            <label>Status</label>
+									            <md-select ng-model="search.Status">
+									              <md-option value="Open">Open</md-option>
+									              <md-option value="Closed">Closed</md-option>
+									            </md-select>
+									        </md-input-container>
+										</li>
+
+										<li>
+											<md-button class="md-raised md-primary" ng-click="searchform();" style="margin-top: 15px;">Search</md-button>
+										</li>
+										<li>
+											<md-button class="md-raised md-primary" ng-click="reset();" style="margin-top: 15px;">Clear</md-button>
+										</li>
+										<li>
+											<md-button href="#/new-dc" md-colors="{background: 'pink'}" class="md-raised md-ink-ripple new" >New DC</md-button>
+										</li>
+										<li ng-show="selection.length>0&&search.CID&&!search.Type">
+											<md-button class="md-raised md-ink-ripple" md-colors="{background: 'pink'}" ng-click="newinvoice();" style="margin-top: 15px;">Generate DC</md-button>
+										</li>
+
+									</ul>
+
+									<!-- <div class="navbar-right">
+										<a href="#/create-invoice" class="btn btn-sm bg-blue btn-labeled heading-btn legitRipple" style="margin-top: 5px;"><b><i class="icon-task"></i></b> New Invoice</a>
+									</div> -->
+
+								</div>
+								</md-content>
+							</div>
+
+
+							<kendo-grid options="mainGridOptions" id="grid">
+        </kendo-grid>
+</div>

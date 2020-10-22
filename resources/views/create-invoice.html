@@ -1,0 +1,362 @@
+<style type="text/css">
+md-select.form-control{margin-top: 0px;}md-input-container .md-errors-spacer{display: none;}.panel{margin-bottom: 5px;}.panel-body{padding-bottom: 5px; padding-left: 0px; padding-right: 0px;}::-webkit-input-placeholder{text-align: center;}:-moz-placeholder{/* Firefox 18- */ text-align: center;}::-moz-placeholder{/* Firefox 19+ */ text-align: center;}:-ms-input-placeholder{text-align: center;}table>thead>tr{background-color: #00BCD4; color: #fff;}h5{font-weight: 500;}.panel-heading{padding-top: 5px; padding-bottom: 5px;}label{text-align: center; margin-bottom: 0px;}.table>tbody>tr>td{border-top: none;}.table>tfoot>tr>th{border-top: none;}.table>tbody>tr>td{padding: 12px 5px;text-align: center; vertical-align: middle;}.table>thead>tr>th,.table>tfoot>tr>th{padding: 12px 5px; text-align: center; font-weight: bold;}.bol{border-left: 1px solid #bbb;}.bor{border-right: 1px solid #bbb;}.bob{border-bottom: 1px solid #bbb;}.bel{padding-top: 9px;text-align: right;font-weight: bold;}
+/*.col-xs-1{
+	    width: 6.5%;
+}*/
+.table>thead>tr>th {
+    border-bottom: 0px solid #bbb;
+    border-right: 1px solid #bbb;
+}
+/*.col-xs-pa{
+	width: 33.33%;
+	float: left;
+}*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.amt{
+	text-align: right;
+}
+.bill{
+	background-color: rgb(239, 239, 239);
+}
+.form-horizontal .control-label:not(.text-right) {
+    text-align: right;
+}
+</style>
+<div class="row">
+<div class="form-horizontal">
+<div class="col-md-12">
+<div class="panel panel-flat">
+	<div class="panel-body">
+	<form name="CampaignCreate" ng-submit="create();">
+		<div class="form-group col-sm-4">
+			<label class="col-lg-3 control-label">Customer :</label>
+			<div class="col-lg-9">
+			<md-autocomplete ng-show="Customers" required placeholder="Search Customer Here " style="min-width: 160px;"  md-no-cache="true"
+			md-selected-item-change="customerchange();"
+			md-selected-item="form.Customer" md-min-length="0" md-search-text="searchText" md-items="lead in query(searchText)" md-item-text="lead.CName">
+			  <md-item-template>
+			    <span md-highlight-text="searchText"  md-highlight-flags="^i">{{lead.CName}}-{{lead.Name}}</span>
+			  </md-item-template>
+			  <md-not-found>
+			    <a ng-click="createNewCustomer(searchText,$event)"><i class="icon-users"></i>  Create New Customer</a>
+			</md-not-found>
+			</md-autocomplete>
+			</div>
+		</div>
+
+		<!-- <div class="form-group  col-sm-2">
+			<label class="col-lg-5 control-label">GST % :</label>
+			<div class="col-lg-7">
+				<md-select ng-model="form.GST" required="true" class="form-control" name="State" ng-change="gstchange()">
+					<md-option value=""></md-option>
+					<md-option ng-repeat="state in GST" value="{{state.GST}}">{{state.GST}} %</md-option>
+				</md-select>
+			</div>
+		</div>
+ -->
+		<div class="form-group  col-sm-3">
+			<label class="col-lg-3 control-label">Date :</label>
+			<div class="col-lg-9">
+				<md-datepicker ng-model="form.Dat" md-placeholder="Date" ></md-datepicker>
+			</div>
+		</div>
+		<!-- <div class="form-group  col-sm-3">
+			<label class="col-lg-3 control-label">Due :</label>
+			<div class="col-lg-9">
+				<md-datepicker ng-model="form.Du" md-placeholder="Date" ></md-datepicker>
+			</div>
+		</div> -->
+	</form>	
+	</div>
+</div>
+
+</div>
+<style type="text/css">
+.tab .table { display: table; }.tab .table>* { display: table-row; }.tab .table>*>* { display: table-cell; }
+</style>
+<div class="col-md-12">
+<div class="panel panel-flat">
+	<div class="panel-heading">
+		<h5 class="panel-title" ng-if="Type=='Create'">New Invoice</h5>
+		<h5 class="panel-title" ng-if="Type=='Edit'">Edit Invoice</h5>
+	</div>
+
+	<div class="panel-body">
+
+	<div class="row">
+
+		<div class="col-sm-5">
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">Invoice No :</label>
+				<div class="col-lg-8">
+					<select name="InvFrom" ng-model="form.InvFrom" required="true">
+						<option ng-repeat="from in InvFrom" value="{{from}}">{{from}}</option>
+					</select>
+					<select name="InvThr" ng-model="form.InvThr" required="true">
+						<option ng-repeat="thr in InvThr" value="{{thr}}">{{thr}}</option>
+					</select>
+					<select name="InvTy" ng-model="form.InvTy" required="true">
+						<option ng-repeat="ty in InvTy" value="{{ty}}">{{ty}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">ITEM :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Ite" class="form-control" name="Ite">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">PACKAGES :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Pac" class="form-control" name="Pac">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">FLIGHT / VESSEL :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Fli" class="form-control" name="Fli">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">S.B / B.E . No :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Sb" class="form-control" name="Sb">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">G.R. WT. / CBM :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Gr" class="form-control" name="Gr">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">CBM /VOL :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Cbm" class="form-control" name="Cbm">
+				</div>
+			</div>
+
+			
+		</div>
+		<div class="col-sm-6">
+
+			<!-- <div class="form-group">
+				<label class="col-lg-4 control-label">Job No :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Job" class="form-control" name="Job">
+				</div>
+			</div> -->
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">CONSIGNEE :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Cons" class="form-control" name="Cons">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">AWBL / B/L NO. :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Awbl" class="form-control" name="Awbl">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">DESTINATION :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.Dest" class="form-control" name="Dest">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">INVOICE NO :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.InNo" class="form-control" name="InNo">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">FLIGHT / CONTAINER NO :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.FliNo" class="form-control" name="FliNo">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-lg-4 control-label">Ex.Rt :</label>
+				<div class="col-lg-8">
+					<input ng-model="form.ExRt" class="form-control" name="ExRt">
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+		<div class="table-responsive">
+		<table class="table">
+		<thead>
+			<tr>
+				<th class="col-xs-1">S No</th>
+				<th class="col-xs-4">Particulars</th>
+				<th class="col-xs-1">HSN / SAC</th>
+				<th class="col-xs-1">GST</th>
+				<th class="col-xs-1">Amount</th>
+				<th class="col-xs-1" ng-if="form.State==32">CGST</th>
+				<th class="col-xs-1" ng-if="form.State==32">SGST</th>
+				<th class="col-xs-1" ng-if="form.State!=32">IGST</th>
+				<th class="col-xs-1">Total</th>
+				<th class="col-xs-3"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="da in details">
+				<td>{{$index+1}}</td>
+				<td>{{da.IName}}</td>
+				<td>{{da.HSN}}</td>
+				<td>{{da.GST}}</td>
+				<td>{{da.Amount| currency : "&#8377; " : 2}}</td>				
+				<td  ng-if="form.State==32">{{da.CGST}} / {{da.RCGST}}</td>
+				<td  ng-if="form.State==32">{{da.SGST}} / {{da.RSGST}}</td>	
+				<td  ng-if="form.State!=32">{{da.IGST}} / {{da.RIGST}}</td>				
+				<td >{{da.Total| currency : "&#8377; " : 2}}</td>
+				<td>
+					<a class="" ng-click="edit($index);"><i class="glyphicon glyphicon-pencil"></i></a>
+				<a class="btn btn-sm" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="row bill"  >
+		<form name="NewPO" ng-submit="add();">
+		<div class="col-xs-1">
+				<label class="form-control">{{details.length+1}}</label>
+		</div>
+		<div class="col-xs-4">
+			<!-- <input ng-show="form2.Item&&form2.IName" ng-change="inamechange();" type="text" class="form-control" placeholder="Description" ng-model="form2.IName" name="IName" required="true"> -->
+
+			<md-autocomplete required placeholder="Search Items Here " style="min-width: 160px;"  md-no-cache="true"
+			md-selected-item-change="itemchange();"
+			md-selected-item="form2.Item" md-min-length="0" ng-disabled="Type=='Proformainvoice'" md-search-text="form2.IName" md-items="item in itemquery(form2.IName)" md-item-text="item.IName">
+			  <md-item-template>
+			    <span md-highlight-text="form2.IName"  md-highlight-flags="^i">{{item.IName}}</span>
+			  </md-item-template>
+			  <md-not-found>
+			</md-not-found>
+			</md-autocomplete>
+		</div>
+		<div class="col-xs-1">
+				<select name="HSN" class="form-control" ng-disabled="Type=='Proformainvoice'&&$scope.curedit!=undefined" ng-model="form2.HSN" >
+					<option ng-repeat="hs in HSN" value="{{hs.HSN}}">{{hs.HSN}}</option>
+				</select>
+		</div>
+		<div class="col-xs-1">
+				<select name="HSN" class="form-control" ng-disabled="Type=='Proformainvoice'" ng-model="form2.GST" ng-change="gst();">
+					<option ng-repeat="gst in GST" value="{{gst.GST}}">{{gst.GST}}</option>
+				</select>
+		</div>
+
+		<div class="col-xs-1">
+				<input type="number" ng-disabled="Type=='Proformainvoice'&&$scope.curedit!=undefined" string-to-number class="form-control" placeholder="Amount" ng-model="form2.Amount" name="Amount" required="true" ng-change="calc();">
+		</div>
+
+		<div class="col-xs-1" ng-if="form.State==32">
+				<label class="form-control">{{form2.CGST}} / {{form2.RCGST}}</label>
+		</div>
+		<div class="col-xs-1" ng-if="form.State==32">
+				<label class="form-control">{{form2.SGST}} / {{form2.RSGST}}</label>
+		</div>
+		<div class="col-xs-1" ng-if="form.State!=32">
+				<label class="form-control">{{form2.IGST}} / {{form2.RIGST}}</label>
+		</div>
+		<div class="col-xs-1">
+				<input type="text" class="form-control" placeholder="Total" ng-model="form2.Total" name="Total" readonly="" required="true">
+		</div>
+		<div class="col-xs-1">
+
+			<button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i></button>
+		</div>
+		</form>
+		</div>
+<style type="text/css">
+	.totdis>tbody>tr>th,.totdis>tbody>tr>td{
+		padding-left: 10px;
+		padding-right: 20px;
+	}
+	table.totdis{
+		    width: 100%;
+	}
+</style>
+
+		<div class="row" style="font-size: 15px; padding-top: 30px; line-height: 33px;">
+			<div class="col-sm-offset-2 col-sm-3">
+				<table class="totdis" ng-show="details.length>0">
+					<tbody>
+						<tr>
+							<td>Add: CGST  <b ng-hide="multiple">({{details[0].RCGST}}%)</b></td>
+							<td class="amt">{{form.CGST| currency : "&#8377; " : 2}}</td>
+						</tr>
+						<tr>
+							<td>Add: SGST <b ng-hide="multiple">({{details[0].RSGST}}%)</b></td>
+							<td class="amt">{{form.SGST| currency : "&#8377; " : 2}}</td>
+						</tr>
+						<tr>
+							<td>Add: IGST <b ng-hide="multiple">({{details[0].RIGST}}%)</b></td>
+							<td class="amt">{{form.IGST| currency : "&#8377; " : 2}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-offset-1 col-sm-3">
+				<table class="totdis" ng-show="details.length>0">
+					<tbody>
+						<tr>
+							<td>Subtotal</td>
+							<td class="amt">{{form.Amount}}</td>
+						</tr>
+						<tr>
+							<td>Total GST</td>
+							<td class="amt">{{form.CGST*1+form.SGST*1+form.IGST*1| currency : "&#8377; " : 2}}</td>
+						</tr>
+						<tr>
+							<td>Round Off</td>
+							<td class="amt">{{form.Round| currency : "&#8377; " : 2}}</td>
+						</tr>
+						<tr style="border:1px solid #00BCD4;    font-size: 23px;">
+							<th>Total</th>
+							<th class="amt">{{form.Total| currency : "&#8377; " : 2}}</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<div class="form-group  col-sm-1">
+			<button type="submit" ng-click="create()" class="btn bg-indigo">Save <i class="icon-arrow-right14 position-right"></i></button>
+			<ul ng-if="Type=='Edit'" class="icons-list" style="padding-top: 10px;">
+				<a href="" ng-if="(form.IID==form.Last)||form.Status=='Regen'" ng-click="todelete(form.IID);" class="btn btn-danger btn-labeled heading-btn legitRipple"><b><i class="icon-trash"></i></b> Delete</a>
+
+
+            	<a href="" ng-if="form.Status=='Payable'" ng-click="cancel('Cancelled');" class="btn bg-orange btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Cancel</a>
+            	<a href="" ng-if="form.Status=='Cancelled'"  ng-click="cancel('Cancelled');" class="btn bg-green btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Undo Cancel</a>
+            	<a  style="margin-top: 10px;" href="#/regen/{{form.IID}}" ng-if="form.Status=='Cancelled'" class="btn bg-green btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Generete</a>
+        	</ul>
+		</div>
+		</div>
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>

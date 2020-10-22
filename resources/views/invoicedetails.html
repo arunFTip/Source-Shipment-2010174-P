@@ -1,0 +1,83 @@
+<md-dialog aria-label="{{Type}} Details">
+<form name="CampaignCreate" ng-submit="create();">
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>{{Type}} Details</h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<label>Reversable Charge</label>
+				<input type="text" class="form-control" ng-model="form.RC" name="Name" >
+			</div>
+
+
+			<div class="col-sm-6">
+				<label>PO No</label>
+				<input type="text" class="form-control" ng-model="form.PoNo" name="Name" >
+			</div>
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<label>PO Ref No</label>
+				<input type="text" class="form-control" ng-model="form.PoRNo" name="Name" >
+			</div>	
+
+
+			<div class="col-sm-6">
+				<label>PO Date</label>
+				<input type="text" class="form-control" ng-model="form.PoDate" name="Name" >
+			</div>
+
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<label>Design No</label>
+				<input type="text" class="form-control" ng-model="form.DesignNo" name="Name" >
+			</div>	
+
+			<div class="col-sm-6">
+				<label>DC No</label>
+				<input type="text" class="form-control" ng-model="form.DcNo" name="Name" >
+			</div>									
+		</div>
+	</div>
+	<div class="form-group">
+	</div>
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6">
+				<label>Place Of No</label>
+				<input type="text" class="form-control" ng-model="form.Place" name="Name" >
+			</div>
+
+			<div class="col-sm-6">
+				<label>Delivery Through</label>
+				<input type="text" class="form-control" ng-model="form.DT" name="Name" >
+			</div>										
+		</div>
+	</div>
+
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions layout="row">
+  <span flex></span>
+  <md-button ng-click="hide()">
+   Cancel
+  </md-button>
+  <button type="submit" class="btn bg-indigo" ng-disabled="CampaignCreate.$invalid">Save</button>
+</md-dialog-actions>
+ </form>
+</md-dialog>

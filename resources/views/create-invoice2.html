@@ -1,0 +1,224 @@
+<style type="text/css">
+	.table>tbody>tr>td{
+     border-top: none; 
+}
+.table>tfoot>tr>th {
+     border-top: none; 
+}
+.table>tbody>tr>td {
+    padding: 0px 5px;
+    vertical-align: middle;
+}
+.table>thead>tr>th,.table>tfoot>tr>th {
+    padding: 12px 5px;
+}
+.bol{
+	border-left: 1px solid #bbb;
+}
+.bor{
+	border-right: 1px solid #bbb;
+}
+.bob{
+	border-bottom: 1px solid #bbb;
+}
+.bel
+{
+	padding-top: 9px;
+	text-align: right;
+	font-weight: bold;
+}
+</style>
+<!-- Vertical form options -->
+<div class="row">
+
+
+<!-- Basic layout-->
+<div class="form-horizontal">
+<div class="col-md-12">
+<div class="panel panel-flat">
+	<div class="panel-heading">
+		<h5 class="panel-title" ng-if="Type=='Create'">New Invoice</h5>
+		<h5 class="panel-title" ng-if="Type=='Edit'">Edit Invoive</h5>
+		<div class="heading-elements">
+			<ul ng-if="Type=='Edit'" class="icons-list">
+			 <div class="heading-elements">
+            	<a href="" ng-if="form.Status=='Payable'" ng-click="cancel('Cancelled');" class="btn bg-orange btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Cancel</a>
+            	<a href="#/regen/{{form.IID}}" ng-if="form.Status=='Cancelled'" class="btn bg-green btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Generete</a>
+            </div>
+        	</ul>
+    	</div>
+	</div>
+
+	<div class="panel-body">
+	<form name="CampaignCreate" ng-submit="create();">
+		<div class="form-group col-sm-6">
+			<label class="col-lg-3 bel">Customer :</label>
+			<div class="col-lg-9">
+			<input type="text" name="CNAME" ng-model="form.Customer.CName" class="form-control" readonly="">
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-5">
+			<label class="col-lg-3 bel">Date :</label>
+			<div class="col-lg-9">
+				<md-datepicker ng-model="form.Dat" md-placeholder="Date" md-open-on-focus ></md-datepicker>
+			</div>
+		</div>
+		<div class="form-group  col-sm-1">
+			<button type="submit" class="btn bg-indigo">Save <i class="icon-arrow-right14 position-right"></i></button>
+
+		</div>
+
+		<div class="form-group  col-sm-6">
+			<label class="col-lg-3 bel">Order No :</label>
+			<div class="col-lg-9">
+				<input type="text" name="OrNo" ng-model="form.OrNo" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-6">
+			<label class="col-lg-3 bel">Order Date :</label>
+			<div class="col-lg-9">
+				<md-datepicker ng-model="form.OrDat" md-placeholder="Date" md-open-on-focus ></md-datepicker>
+			</div>
+		</div>
+
+	</form>	
+
+	</div>
+</div>
+
+</div>
+
+<div class="col-md-12">
+<div class="panel panel-flat">
+
+
+
+	<div class="panel-body">
+		<div class="table-responsive">
+		<table class="table">
+		<thead>
+		<tr>
+
+		<th>
+		<form name="CampaignCreate" ng-submit="add();">
+
+
+		</th>
+		<th>
+				<input type="text" class="form-control" placeholder="DC No" ng-model="form2.Dc" name="Dc" required="true">
+		</th>
+		<th>
+				<input type="text" class="form-control" placeholder="Date" ng-model="form2.Date" name="Date" required="true">
+		</th>
+		<th>
+				<input type="text" class="form-control" placeholder="Particulars" ng-model="form2.Des" name="Particulars">
+		</th>
+		<th>
+				<input type="number" min="1" class="form-control" placeholder="Rate" ng-model="form2.Amount" name="Amount" ng-change=calc(); required="true">
+		</th>
+		<th>
+				<input type="number" min="1" class="form-control" placeholder="Qty in Meters" ng-model="form2.Qty" name="Qty" ng-change=calc(); required="true">
+		</th>
+		<th>
+				<input type="text" class="form-control" placeholder="Amount" ng-model="form2.Total" name="Total" readonly="" required="true">
+		</th>
+		<th>
+			<button type="submit" class="btn btn-primary btn-sm" ng-click="add();"><i class="glyphicon glyphicon-plus"></i></button>
+		</form>
+		
+		</th>	
+
+		</tr>
+			<tr>
+				<th class="col-xs-1">S No</th>
+				<th>DC No</th>
+				<th class="col-xs-1">Date</th>
+				<th>Particulars</th>
+				<th class="col-xs-1">Rate</th>
+				<th class="col-xs-2">Quantity</th>
+				<th class="col-xs-2">Amount</th>
+				<th class="col-xs-2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- <tr ng-repeat="da in details">
+				<td></td>
+				<td>{{da.Dc}}</td>
+				<td>{{da.Date}}</td>
+				<td>{{da.Des}}</td>
+				<td>{{da.Amount | currency : "&#8377; " : 2}}</td>
+				<td>{{da.Qty}}</td>				
+				<td>{{da.Total| currency : "&#8377; " : 2}}</td>
+				<td><a type="submit" class="btn btn-sm" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+			</tr> -->
+			<tr ng-repeat="da in details">
+				<td><label ng-hide="curedit==$index">{{$index+1}}</label></td>
+				<td><label ng-hide="curedit==$index">{{da.Dc}}</label>     <input ng-show="curedit==$index" type="text" class="form-control" placeholder="DC No" ng-model="form2.Dc" name="Dc" required="true"></td>
+				<td><label ng-hide="curedit==$index">{{da.Date}}</label>   <input ng-show="curedit==$index" type="text" class="form-control" placeholder="Date" ng-model="form2.Date" name="Date" required="true"></td>
+				<td><label ng-hide="curedit==$index">{{da.Des}}</label>    <input ng-show="curedit==$index" type="text" class="form-control" placeholder="Particulars" ng-model="form2.Des" name="Particulars"></td>
+				<td><label ng-hide="curedit==$index">{{da.Amount | currency : "&#8377; " : 2}}</label>     <input ng-show="curedit==$index" type="number" min="1" class="form-control" placeholder="Rate" ng-model="form2.Amount" name="Amount" ng-change=calc(); required="true"></td>
+				<td><label ng-hide="curedit==$index">{{da.Qty}}</label>	    <input ng-show="curedit==$index" type="number" min="1" class="form-control" placeholder="Qty in Meters" ng-model="form2.Qty" name="Qty" ng-change=calc(); required="true"></td>				
+				<td><label ng-hide="curedit==$index">{{da.Total| currency : "&#8377; " : 2}}</label>      <input ng-show="curedit==$index" type="text" class="form-control" placeholder="Amount" ng-model="form2.Total" name="Total" readonly="" required="true"></td>
+				<td><a ng-hide="curedit==$index" type="submit" class="btn btn-sm" ng-click="edit($index);"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a ng-hide="curedit==$index" type="submit" class="btn btn-sm" ng-click="delete($index);"><i class="glyphicon glyphicon-trash"></i></a>
+
+					<a ng-show="curedit==$index" type="submit" class="btn btn-sm" ng-click="save($index);"><i class="glyphicon glyphicon-ok"></i></a>
+					<a ng-show="curedit==$index" type="submit" class="btn btn-sm" ng-click="curedit=undefined"><i class="glyphicon glyphicon-remove"></i></a>
+					</td>
+			</tr>
+		</tbody>
+		<tfoot style="border-top: 1px solid #bbb;">
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th>Total :</th>
+				<th class="bol">{{form.Qty| currency : "&#8377; " : 2}}</th>
+				<th class="bor">{{form.Total| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol">Vat {{set[2].Value}}% </th>
+				<th class="bor">{{form.Vat | currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol">Rounded Off</th>
+				<th class="bor">{{form.Round| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr style="font-size: 30px;">
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol bob">Total</th>
+				<th class="bor bob">{{form.Amount| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</tfoot>
+		</table>
+		</div>
+
+	</div>
+</div>
+</div>
+</div>
+<!-- /basic layout -->
+
+</div>
+					<!-- /vertical form options -->

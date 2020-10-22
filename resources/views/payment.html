@@ -1,0 +1,175 @@
+<style type="text/css">
+	md-select.form-control {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+md-input-container .md-errors-spacer {
+    display: none;
+}
+.fg{
+	    margin-bottom: 0px;
+}
+.cl{
+	    padding-bottom: 0px;
+	    padding-top: 0px;
+	    text-align: right;
+}
+label {
+    margin-bottom: 0px;
+}
+.form-control-static {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0;
+    min-height: 0px;
+}
+</style>
+<div class="panel panel-flat">
+		<div class="navbar navbar-default navbar-xs navbar-component">
+								<ul class="nav navbar-nav no-border visible-xs-block">
+									<li><a class="text-center collapsed legitRipple" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+								</ul>
+								<md-content layout-padding>
+								<div class="navbar-collapse collapse" id="navbar-filter">
+									<ul class="nav navbar-nav">
+
+										<li>
+											<md-input-container class="md-block" flex-gt-sm>
+									            <label>Invoice</label>
+									            <input ng-model="search.InvNo">
+									        </md-input-container>
+										</li>
+										<li>
+											<md-input-container class="md-block" flex-gt-sm>
+									            <label>Company</label>
+									            <input ng-model="search.CName">
+									        </md-input-container>
+										</li>
+										<li>
+											<md-input-container class="md-block" flex-gt-sm>
+									            <label>Status</label>
+									            <md-select ng-model="search.Status">
+									            	<md-option value="">All</md-option>
+									              <md-option value="Payable">Payable</md-option>
+									              <md-option value="Overdue">Overdue</md-option>
+									              <md-option value="Closed">Closed</md-option>
+									            </md-select>
+									        </md-input-container>
+										</li>
+										<li>
+											<md-input-container>
+            									<label>From Date</label>
+												<md-datepicker ng-model="FromDat" md-open-on-focus ></md-datepicker>
+											</md-input-container>
+										</li>
+										<li>
+											<md-input-container>
+            									<label>To Date</label>
+												<md-datepicker ng-model="ToDat" md-open-on-focus md-min-date="FromDat"></md-datepicker>
+											</md-input-container>
+										</li>
+										<li>
+											<md-button class="md-raised md-primary" ng-click="searchform();" style="margin-top: 15px;">Search</md-button>
+										</li>
+										<li>
+											<md-button class="md-raised md-primary" ng-click="reset();" style="margin-top: 15px;">Clear</md-button>
+										</li>
+									</ul>
+								</div>
+								</md-content>
+							</div>
+
+
+							<kendo-grid options="mainGridOptions" id="grid" cache="cache">
+            <div k-detail-template>
+                <kendo-tabstrip>
+                <ul>
+                    <li class="k-state-active">Payments</li>
+                    <li class="" ng-click="makepay(dataItem);">Make payment</li>
+                </ul>
+                <div>
+                    <div kendo-grid k-options="detailGridOptions(dataItem)"></div>
+                </div>
+                <div>
+                    <div kendo-grid k-options="detailGridOptions(dataItem)"></div>
+                </div>
+                </kendo-tabstrip>
+            </div>
+        </kendo-grid>
+
+        
+</div>
+
+<script type="text/ng-template" id="register.html">
+<md-dialog aria-label="{{Type}} Payment">
+  <form name="CampaignCreate" class="form-horizontal" ng-submit="submit();">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{Type}} Payment to {{data.CName}}</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content" style="min-width: 400px;">
+		<div class="form-group">
+			<label class="col-lg-3 control-label">Date :</label>
+			<div class="col-lg-9">
+			<md-datepicker ng-model="form.Dat" md-placeholder="Date" md-open-on-focus time="true"  required></md-datepicker>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-3 control-label">Type :</label>
+			<div class="col-lg-9">
+
+			<md-select ng-model="form.Cheque"  class="form-control" required>
+				<md-option value=""></md-option>
+				<md-option value="Cheque">Cheque</md-option>
+				<md-option value="RTGS">RTGS</md-option>
+				<md-option value="Cash">Cash</md-option>
+			</md-select>
+
+			</div>
+		</div>
+
+		<div class="form-group" ng-show="form.Cheque=='Cheque'">
+			<label class="col-lg-3 control-label">Cheque No :</label>
+			<div class="col-lg-9">
+				<input type="text" class="form-control" placeholder="ChequeNo" ng-model="form.ChequeNo" name="ChequeNo">
+			</div>
+		</div>
+
+		<div class="form-group" ng-hide="form.Cheque=='Cash'">
+			<label class="col-lg-3 control-label">Bank :</label>
+			<div class="col-lg-9">
+				<input type="text" class="form-control" placeholder="Bank" ng-model="form.Bank" name="Bank">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-3 control-label">Amount :</label>
+			<div class="col-lg-9">
+				<input type="number" string-to-number min="1" max="{{Balance}}" class="form-control" placeholder="Amount" ng-model="form.Amount" name="CustRate" required>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-3 control-label">Detail :</label>
+			<div class="col-lg-9">
+				<input type="text" class="form-control" placeholder="Detail" ng-model="form.Detail" name="CustRate">
+			</div>
+		</div>
+
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="hide()">
+       Cancel
+      </md-button>
+      <button type="submit" class="btn bg-indigo">Save</button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+</script>

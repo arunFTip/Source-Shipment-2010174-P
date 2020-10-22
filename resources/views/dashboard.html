@@ -1,0 +1,113 @@
+<div class="row">
+<div class="col-lg-8">
+<div class="panel panel-flat">
+<div class="panel-body">
+<div id="curve_chart"></div>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="row">
+
+
+<div class="col-lg-12">
+<div class="panel panel-flat">
+<div class="panel-heading">
+<h6 class="panel-title">Recent Invoices<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+</div>
+
+
+<div class="table-responsive">
+<table class="table text-nowrap">
+<thead>
+<tr>
+<th class="col-md-2">Invoice</th>
+<th class="col-md-2">Date</th>
+<th class="col-md-2">Company</th>
+<th class="col-md-2">Total</th>
+<th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
+</tr>
+</thead>
+<tbody>
+
+<tr ng-repeat="inv in invoice">
+<td>
+<div class="media-left">
+<div class=""><h6 class="text-semibold"># {{inv.InvNo}}</h6></div>
+</div>
+</td>
+
+<td>
+<div class="media-left">
+<div class=""><span class="text-muted">{{inv.Date*1000|date:'dd-MM-yyyy'}}</span></div>
+</div>
+</td>
+
+<td><a href="">{{inv.CName}}</a></td>
+<td><h6 class="text-semibold">{{inv.Total| currency : "&#8377; " : 2}}</h6></td>
+<td class="text-center">
+<ul class="icons-list">
+<li class="dropdown">
+<a href="#/print/{{inv.IID}}" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-print"></i></a>
+</li>
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<!-- 
+
+<div class="col-lg-6">
+<div class="panel panel-flat">
+<div class="panel-heading">
+<h6 class="panel-title">Recent Payments<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+</div>
+
+<div class="table-responsive">
+<table class="table text-nowrap">
+<thead>
+<tr>
+<th class="col-md-2">S.No</th>
+<th class="col-md-2">Date</th>
+<th class="col-md-2">Company</th>
+<th class="col-md-2">Amount</th>
+</tr>
+</thead>
+<tbody>
+
+<tr ng-repeat="inv in purchase">
+<td>
+<div class="media-left">
+<div class=""><h6 class="text-semibold"># {{$index}}</h6></div>
+</div>
+</td>
+
+<td>
+<div class="media-left">
+<div class=""><span class="text-muted">{{inv.Date*1000|date:'dd-MM-yyyy'}}</span></div>
+</div>
+</td>
+
+<td><a href="">{{inv.CName}}</a></td>
+<td><h6 class="text-semibold">{{inv.Amount| currency : "&#8377; " : 2}}</h6></td>
+
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+</div> -->
+
+
+</div>

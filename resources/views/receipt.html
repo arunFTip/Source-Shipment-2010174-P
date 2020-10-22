@@ -1,0 +1,76 @@
+<style type="text/css">
+@media print
+{
+body * { visibility: hidden; }
+.print * { visibility: visible; }
+}
+.table>tbody>tr>td{
+     border-top: none; 
+}
+.table>tfoot>tr>th {
+     border-top: none; 
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 5px 5px;
+}
+</style>
+
+<div class="panel panel-flat ">
+<div class="navbar navbar-default navbar-xs navbar-component">
+<div class="navbar-collapse collapse" id="navbar-filter">
+
+<div class="navbar-right">
+	<a href="" ng-click="print();" class="btn bg-blue btn-labeled heading-btn legitRipple"><b><i class="icon-task"></i></b> Print</a>
+</div>
+</div>
+</div>
+
+<div class="panel-body print">
+<div class="table-responsive">
+	<table  class="table">
+		<tbody>
+				<tr>
+					<td colspan="4">
+					<h3 style="margin: 0px">Vivega Printers,</h3><br><br>
+					<h2 style="margin: 0px">{{form.Cheque}} Receipt</h2>
+
+
+					</td>
+					<td colspan="4">
+					<div class="pull-right">
+						<b>Date       : </b>{{data.Date*1000|date:'dd-MM-yyyy'}}<br>
+						<b>Receipt No : </b>{{form.PID}}<br>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+	</table>
+
+	<div style="margin-top: 20px;margin-bottom: 20px;">
+		<p>Cash received from {{data.CName}} the amount of {{form.Amount| currency : "&#8377; " : 2}}/-​ for Invoice No: ​{{data.InvNo}}	.</p>
+	</div>
+
+		<table  class="table">
+		<tbody>
+				<tr>
+					<td colspan="4">
+					<b>Total Amount :</b> {{data.Amount| currency : "&#8377; " : 2}}<br>
+					<b>Amount Paid :</b> {{form.Amount| currency : "&#8377; " : 2}}<br>
+					<b>Balance Amount :</b> {{data.Balance| currency : "&#8377; " : 2}}<br>
+
+
+					</td>
+					<td colspan="3">
+					<div class="pull-right">
+						<b>Payment received in: {{form.Cheque}}</b>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+	</table>
+
+	</div>
+</div>
+
+
+</div>

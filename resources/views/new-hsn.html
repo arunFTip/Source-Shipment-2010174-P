@@ -1,0 +1,38 @@
+<md-dialog aria-label="{{Type}} HSN">
+<form name="CampaignCreate" ng-submit="createItem();">
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>{{Type}} HSN</h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-12" >
+				<label>HSN Code</label>
+				<input type="text" class="form-control" ng-model="form.HSN" name="CName" required="">
+				<span class="help-block">{{formError.HSN[0]}}</span>
+			</div>	
+			<div class="col-sm-12" >
+				<label>GST %</label>
+				<input type="number" step="0.01" class="form-control" ng-model="form.GST" name="GST" required="">
+			</div>						
+		</div>
+	</div>
+
+
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions layout="row">
+  <span flex></span>
+  <md-button ng-click="hide()">
+   Cancel
+  </md-button>
+  <button type="submit" class="btn bg-indigo">Save</button>
+</md-dialog-actions>
+ </form>
+</md-dialog>

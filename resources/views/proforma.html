@@ -1,0 +1,58 @@
+<style type="text/css">
+	md-select.form-control {
+    margin-top: 0px;
+}
+md-input-container .md-errors-spacer {
+    display: none;
+}
+</style>
+<div class="panel panel-flat">
+		<div class="navbar navbar-default navbar-xs navbar-component">
+								<ul class="nav navbar-nav no-border visible-xs-block">
+									<li><a class="text-center collapsed legitRipple" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+								</ul>
+
+																<md-content layout-padding>
+								<div class="navbar-collapse collapse" id="navbar-filter">
+									<ul class="nav navbar-nav" style="max-width: 925px;">
+
+										<li>
+											<md-input-container class="md-block" flex-gt-sm>
+									            <label>Search</label>
+									            <input ng-model="search.Search">
+									        </md-input-container>
+										</li>
+										<li>
+											<md-input-container>
+            									<label>From Date</label>
+												<md-datepicker ng-model="FromDat" md-open-on-focus ></md-datepicker>
+											</md-input-container>
+										</li>
+										<li>
+											<md-input-container>
+            									<label>To Date</label>
+												<md-datepicker ng-model="ToDat" md-open-on-focus md-min-date="FromDat"></md-datepicker>
+											</md-input-container>
+										</li>
+										<li>
+											<md-button class="md-raised md-primary" ng-click="searchform();" style="margin-top: 15px;">Search</md-button>
+										</li>
+
+									</ul>
+									<ul class="nav navbar-nav pull-right">								
+										
+										<li>
+											<md-button href="#/create-proforma" md-colors="{background: 'pink'}" class="md-raised md-ink-ripple new" >New Proforma</md-button>
+										</li>
+									</ul>
+
+								
+
+								</div>
+								</md-content>
+							</div>
+
+
+							<kendo-grid options="mainGridOptions" id="grid">
+        </kendo-grid>
+</div>

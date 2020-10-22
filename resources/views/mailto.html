@@ -1,0 +1,33 @@
+<md-dialog aria-label="{{Type}} HSN">
+<form name="CampaignCreate" ng-submit="sendmail();">
+<md-dialog-content>	
+<div class="md-dialog-content">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6" >
+				<label>Email Address</label>
+				<input type="email" class="form-control" ng-model="emailform.Email" name="Email" required="">
+			</div>	
+
+			<div class="col-sm-6" >
+				<label>Subject</label>
+				<input type="text" class="form-control" ng-model="emailform.Subject" name="Email" required="">
+			</div>					
+		</div>
+		<div class="row">
+			<div class="col-sm-12" >
+				<label>Body</label>
+				<textarea type="text" class="form-control" ng-model="emailform.Body" name="Email" required=""></textarea>
+			</div>					
+		</div>
+
+	</div>
+	  <md-button ng-click="hide()">
+   Cancel
+  </md-button>
+  <button type="submit" class="btn bg-indigo">Send</button>
+  </div>
+</md-dialog-content>
+
+ </form>
+</md-dialog>

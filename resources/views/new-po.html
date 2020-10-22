@@ -1,0 +1,287 @@
+<style type="text/css">
+/*	.table>tbody>tr>td{
+     border-top: none; 
+}
+.table>tfoot>tr>th {
+     border-top: none; 
+}*/
+.col-xs-1{
+	    width: 6%;
+}
+.bill
+{
+	padding: 15px 0px 15px 0px;
+}
+.col-md-12{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.table>tbody>tr>td {
+    padding: 0px 5px;
+    vertical-align: middle;
+}
+.table>thead>tr>th,.table>tfoot>tr>th {
+    padding: 0px 5px;
+    text-align: center;
+    font-weight: bold;
+}
+.table>thead>tr>th {
+    border-bottom: 0px solid #bbb;
+}
+.bol{
+	border-left: 1px solid #bbb;
+}
+.bor{
+	border-right: 1px solid #bbb;
+}
+.bob{
+	border-bottom: 1px solid #bbb;
+}
+.bel
+{
+	padding-top: 9px;
+	text-align: right;
+	font-weight: bold;
+}
+.panel{
+	margin-bottom: 5px;
+}
+.panel-body{
+	    padding-bottom: 5px;
+	    padding-left: 0px;
+	    padding-right: 0px;
+}
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+h5{
+	font-weight: 500;
+}
+.panel-heading {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+label{
+	    text-align: center;
+}
+</style>
+<!-- Vertical form options -->
+<div class="row">
+
+
+<!-- Basic layout-->
+<div class="form-horizontal">
+<div class="col-md-12">
+<div class="panel panel-flat">
+<!-- 	<div class="panel-heading">
+		<h5 class="panel-title" ng-if="Type=='Create'">New PO</h5>
+		<h5 class="panel-title" ng-if="Type=='Edit'">Edit PO</h5>
+	</div> -->
+
+	<div class="panel-body">
+	<form name="CampaignCreate" ng-submit="create();">
+		<div class="form-group col-sm-4">
+			<label class="col-lg-3 bel">Supplier :</label>
+			<div class="col-lg-9">
+			<md-autocomplete placeholder="Search Supplier Here " style="min-width: 160px;" md-selected-item="form.Supplier" md-min-length="0" md-search-text="searchText" md-items="lead in query(searchText)" md-item-text="lead.CName" required>
+			  <md-item-template>
+			    <span md-highlight-text="searchText"  md-highlight-flags="^i">{{lead.CName}}-{{lead.Name}}</span>
+			  </md-item-template>
+			  <md-not-found>
+			    <a ng-click="createNewSupplier(searchText,$event)"><i class="icon-users"></i>  Create New Supplier</a>
+			</md-not-found>
+			</md-autocomplete>
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-2">
+			<label class="col-lg-6 bel">PO No :</label>
+			<div class="col-lg-6">
+				<input type="text" class="form-control" placeholder="PO No" ng-model="form.PONo" name="PONo" required="">
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-3">
+			<label class="col-lg-6 bel">Invoice No :</label>
+			<div class="col-lg-6">
+				<input type="text" class="form-control" placeholder="Invoice No" ng-model="form.InvNo" name="InvoiceNo" required="">
+			</div>
+		</div>
+
+
+
+		<div class="form-group  col-sm-3">
+			<div class="col-lg-10">
+				<md-datepicker ng-model="form.Dat" md-placeholder="Date" md-open-on-focus ></md-datepicker>
+			</div>
+			<div class="col-lg-2">
+				<button type="submit" class="btn bg-indigo">Save <i class="icon-arrow-right14 position-right"></i></button>
+			</div>
+		</div>	
+	</form>	
+
+	</div>
+</div>
+
+</div>
+
+<div class="col-md-12">
+<div class="panel panel-flat">
+
+	<div class="panel-heading">
+		<h5 class="panel-title" ng-if="Type=='Create'">New PO</h5>
+		<h5 class="panel-title" ng-if="Type=='Edit'">Edit PO</h5>
+	</div>
+
+	<div class="panel-body">
+
+
+		<div class="table-responsive">
+		<table class="table">
+		<thead>
+			<tr style="background-color: #e9eef1;">
+				<th rowspan="2" class="col-xs-1">S No</th>
+				<th rowspan="2">Particulars</th>
+				<th rowspan="2" class="col-xs-1">HSN</th>
+				<th rowspan="2" class="col-xs-1">Rate</th>
+				<th rowspan="2" class="col-xs-1">Quantity</th>
+				<th rowspan="2" class="col-xs-1">Amount</th>
+				<th rowspan="2" class="col-xs-1">Disc %</th>
+				<th rowspan="2" class="col-xs-1">Taxable</th>
+				<th colspan="2" class="col-xs-1">CGST</th>
+				<th colspan="2" class="col-xs-1">SGST</th>
+				<th colspan="2" class="col-xs-1">IGST</th>
+				<th rowspan="2" class="col-xs-1">Total</th>
+				<th rowspan="2" class="col-xs-1"></th>
+			</tr>
+			<tr style="background-color: #e9eef1;">
+				<th>Rate</th>
+				<th>Amount</th>
+				<th>Rate</th>
+				<th>Amount</th>
+				<th>Rate</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="da in details">
+				<td>{{$index+1}}</td>
+				<td>{{da.Des}}</td>
+				<td>{{da.HSN}}</td>
+				<td>{{da.Rate | currency : "&#8377; " : 2}}</td>
+				<td>{{da.Qty}}</td>				
+				<td>{{da.Amount| currency : "&#8377; " : 2}}</td>				
+				<td>{{da.Disc}}</td>				
+				<td>{{da.Taxable}}</td>				
+				<td>{{da.CGST}}</td>				
+				<td>{{da.Total| currency : "&#8377; " : 2}}</td>
+				<td><a type="submit" class="btn btn-sm" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="row bill">
+		<form name="NewPO" ng-submit="add();">
+		<div class="col-xs-1">
+				<label class="form-control">{{details.length+1}}</label>
+		</div>
+		<div class="col-xs-4">
+				<input type="text" class="form-control" placeholder="Particulars" ng-model="form2.Des" name="Particulars">
+		</div>
+		<div class="col-xs-1">
+				<input type="number" min="1" class="form-control" placeholder="Rate" ng-model="form2.Amount" name="Amount" ng-change=calc(); required="true">
+		</div>
+		<div class="col-xs-2">
+				<input type="number" min="1" class="form-control" placeholder="Qty" ng-model="form2.Qty" name="Qty" ng-change=calc(); required="true">
+		</div>
+		<div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Amount" ng-model="form2.Total" name="Total" readonly="" required="true">
+		</div>
+		<div class="col-xs-1">
+			<button type="submit" class="btn btn-primary btn-sm" ng-click="add();"><i class="glyphicon glyphicon-plus"></i></button>
+		</div>
+		</form>
+		</div>
+
+<!-- 		<table  class="table">
+		<thead>
+			<tr>
+				<th class="col-xs-1"></th>
+				<th class="col-xs-1"></th>
+				<th></th>
+				<th class="col-xs-1"></th>
+				<th class="col-xs-2"></th>
+				<th class="col-xs-2"></th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</thead>
+		<tfoot style="border-top: 1px solid #bbb;">
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th>Total :</th>
+				<th class="bol">{{form.Qty| currency : "&#8377; " : 2}}</th>
+				<th class="bor">{{form.Total| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol">Vat / CST {{form.VPer}}% </th>
+				<th class="bor">{{form.Vat | currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol">Insurance </th>
+				<th class="bor">{{form.Insurance | currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol">Rounded Off</th>
+				<th class="bor">{{form.Round| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+			<tr style="font-size: 30px;">
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th class="bol bob">Total</th>
+				<th class="bor bob">{{form.Amount| currency : "&#8377; " : 2}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</tfoot>
+		</table> -->
+		</div>
+
+	</div>
+</div>
+</div>
+</div>
+<!-- /basic layout -->
+
+</div>
+					<!-- /vertical form options -->

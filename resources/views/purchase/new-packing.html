@@ -1,0 +1,165 @@
+<style type="text/css">
+	.table>tbody>tr>td{
+     border-top: none; 
+}
+.table>tfoot>tr>th {
+     border-top: none; 
+}
+.table>tbody>tr>td {
+    padding: 0px 5px;
+    vertical-align: middle;
+}
+.table>thead>tr>th,.table>tfoot>tr>th {
+    padding: 12px 5px;
+}
+.bol{
+	border-left: 1px solid #bbb;
+}
+.bor{
+	border-right: 1px solid #bbb;
+}
+.bob{
+	border-bottom: 1px solid #bbb;
+}
+.bel
+{
+	padding-top: 9px;
+	text-align: right;
+	font-weight: bold;
+}
+</style>
+<!-- Vertical form options -->
+<div class="row">
+
+
+<!-- Basic layout-->
+<div class="form-horizontal">
+<div class="col-md-12">
+<div class="panel panel-flat">
+	<div class="panel-heading">
+		<h5 class="panel-title" ng-if="Type=='Create'">New Packing Slip</h5>
+		<h5 class="panel-title" ng-if="Type=='Edit'">Edit Packing Slip</h5>
+	</div>
+
+	<div class="panel-body">
+	<form name="CampaignCreate" ng-submit="create();">
+		<div class="form-group col-sm-4">
+			<label class="col-lg-3 bel">Customer :</label>
+			<div class="col-lg-9">
+			<md-autocomplete placeholder="Search Customer Here " style="min-width: 160px;" md-selected-item="form.Customer" md-min-length="0" md-search-text="searchText" md-items="lead in query(searchText)" md-item-text="lead.CName" required>
+			  <md-item-template>
+			    <span md-highlight-text="searchText"  md-highlight-flags="^i">{{lead.CName}}-{{lead.Name}}</span>
+			  </md-item-template>
+			  <md-not-found>
+			    No matches found.
+			</md-not-found>
+			</md-autocomplete>
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-4">
+			<label class="col-lg-4 bel">Description :</label>
+			<div class="col-lg-8">
+				<input type="text" class="form-control" placeholder="Description" ng-model="form.Description" name="Description" required="">
+			</div>
+		</div>
+
+		<div class="form-group  col-sm-3">
+			<div class="col-lg-12">
+				<md-datepicker ng-model="form.Dat" md-placeholder="Date" md-open-on-focus required></md-datepicker>
+			</div>
+		</div>
+		<div class="form-group  col-sm-1">
+			<button type="submit" class="btn bg-indigo">Save <i class="icon-arrow-right14 position-right"></i></button>
+
+		</div>	
+	</form>	
+
+	</div>
+</div>
+
+</div>
+
+<style type="text/css">
+	.tab .table { display: table; } 
+.tab .table>* { display: table-row; }
+.tab .table>*>* { display: table-cell; }
+</style>
+
+<div class="col-md-12">
+<div class="panel panel-flat">
+
+
+
+	<div class="panel-body">
+		<div class="table-responsive">
+
+		<div class="tab">
+		<div class="tab table">
+					<form name="CampaignCreate" ng-submit="add();">
+					
+					<div class="col-xs-1">
+
+							
+					</div>
+					<div class="col-xs-4">
+							<input type="text" class="form-control" placeholder="Particular" ng-model="form2.Particulars" name="Particulars" required="">
+					</div>
+					<div class="col-xs-2">
+							<input type="number" min="1" class="form-control" placeholder="Box / Rolls" ng-model="form2.Box" name="Box" required="true">
+					</div>
+					<div class="col-xs-2">
+							<input type="number" min="1" class="form-control" placeholder="Meter" ng-model="form2.Meter" name="Meter" required="true">
+					</div>
+					<div class="col-xs-2">
+							<input type="text" class="form-control" placeholder="Remarks" ng-model="form2.Remarks" name="Remarks">
+					</div>
+					<div class="col-xs-1">
+						<button type="submit" class="btn btn-primary btn-sm" ng-click="add();"><i class="glyphicon glyphicon-plus"></i></button>
+					
+					</div>	
+					</form>
+
+		</div>
+		</div>	
+
+		<table class="table">
+		<thead>
+
+			<tr>
+				<th class="col-xs-1">S No</th>
+				<th>Particulars</th>
+				<th class="col-xs-2">Box</th>
+				<th class="col-xs-2">Meter</th>
+				<th class="col-xs-2">Remarks</th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="da in details">
+				<td>{{$index+1}}</td>
+				<td>{{da.Particulars}}</td>
+				<td>{{da.Box}}</td>
+				<td>{{da.Meter}}</td>
+				<td>{{da.Remarks}}</td>
+				<td><a type="submit" class="btn btn-sm" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</tbody>
+		<tfoot style="border-top: 1px solid #bbb;">
+			<tr>
+				<th></th>
+				<th>Total :</th>
+				<th>{{form.TotBox}}</th>
+				<th>{{form.TotMeters}}</th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</tfoot>
+		</table>
+		</div>
+
+	</div>
+</div>
+</div>
+</div>
+
+</div>

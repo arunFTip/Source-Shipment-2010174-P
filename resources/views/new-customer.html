@@ -1,0 +1,82 @@
+<md-dialog aria-label="{{Type}} Customer">
+<form name="CampaignCreate" ng-submit="createCustomer();">
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2>{{Type}} Customer</h2>
+    <span flex></span>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+	<div class="form-group">
+		<div class="row">
+			<!-- <div class="col-sm-6">
+				<label>Name</label>
+				<input type="text" class="form-control" ng-model="custform.Name" name="Name" required="">
+			</div> -->
+			<div class="col-sm-12">
+				<label>Company Name</label>
+				<input type="text" class="form-control" ng-model="custform.CName" name="CName" required="">
+			</div>							
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-6" ng-class="{'has-error': formError.TIN[0]}">
+				<label>GSTIN</label>
+				<input type="text" class="form-control" ng-model="custform.TIN" name="TIN" required="true">
+				<span class="help-block">{{formError.TIN[0]}}</span>
+			</div>
+			<div class="col-sm-6">
+				<label>State</label>
+			
+			<md-input-container style="width: 100%;margin-top: -2px;">
+				<md-select ng-model="custform.State" required="true" class="form-control" name="State">
+					<md-option value=""></md-option>
+					<md-option ng-repeat="state in states" value="{{state.id}}">{{state.Name}}</md-option>
+				</md-select>
+				</md-input-container>
+			</div>	
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-4"  ng-class="{'has-error': formError.Mobile1[0]}">
+				<label>Phone No</label>
+				<input type="text" class="form-control" ng-model="custform.Mobile1" name="Mobile1" required="">
+				<span class="help-block">{{formError.Mobile1[0]}}</span>
+			</div>
+			<div class="col-sm-4">
+				<label>Alternate No</label>
+				<input type="text" class="form-control" ng-model="custform.Mobile2" name="Mobile2">
+			</div>								
+			<div class="col-sm-4">
+				<label>Email</label>
+				<input type="email" class="form-control" ng-model="custform.Email" name="Email">
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="row">
+			<div class="col-sm-12">
+				<label>Address</label>
+				<textarea type="text" class="form-control" ng-model="custform.Address" name="Address"></textarea>
+			</div>
+		</div>
+	</div>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions layout="row">
+  <span flex></span>
+  <md-button ng-click="hide()">
+   Cancel
+  </md-button>
+  <button type="submit" class="btn bg-indigo">Save</button>
+</md-dialog-actions>
+ </form>
+</md-dialog>

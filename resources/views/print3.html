@@ -1,0 +1,550 @@
+
+
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-flat">
+
+<div class="navbar navbar-default navbar-xs navbar-component">
+<md-content layout-padding>
+    <div class="navbar-collapse collapse" id="navbar-filter">
+        <ul class="nav navbar-nav pull-right">                              
+            <li>
+                <md-select ng-model="form.GST" required="true" name="State" style="margin: 5px 35px 15px;">
+                <md-option value="All" selected>All</md-option>
+                <md-option ng-repeat="inv in InvType" value="{{inv}}">{{inv}}</md-option>
+            </md-select>
+            </li>
+            <li>
+                <button class="btn btn-info" ng-click="print('.printpage')">Export</button>
+            </li>
+        </ul>
+    </div>
+</md-content>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="example">
+
+<div class="page-container hidden-on-narrow print" >
+<div class="printpage">
+    <div class="pdf-page size-a4">
+        <div class="pdf-header">
+
+
+<div class="container" align="center" style="padding-left: 50px;padding-right: 50px;">
+<h5 style="margin-top: 205px;font-size: 12px;margin-bottom: 0;"><b>INVOICE ORIGINAL COPY</b></h5>
+
+<table >
+        <tr>
+            <th style="text-align: center;font-size: 13px;width: 49%;font-weight: bold;">BUYER'S BILLING NAME AND ADDRESS </th>
+            <th style="text-align: center;font-size: 13px;font-weight: bold;">INVOICE AND PURCHASE ORDER DETAILS</th>
+            
+        </tr>
+            <tr>
+            <td>
+                <p style="font-size: 12px;line-height: 17px;">{{data.CName}}<br>
+                <c style="white-space: pre-line;">{{data.Address}}</c>
+                <br><br>
+
+                
+                <b>GSTIN :</b> {{data.TIN}}<br>
+                <b>STATE :</b> {{states[data.State].Name}} <span style="float: right;"><b>STATE CODE :</b> {{states[data.State].code}}</span>
+                </p>
+            </td>
+            <td>
+                
+
+                    <table class="inv" style="border: none;">
+                        
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE NO.</td><td>: {{data.InvNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE DATE</td><td>: {{data.Date*1000|date:'dd.MM.yyyy'}}</td></tr>
+                             <tr><td style="font-weight: bold;width: 45%;">REVERSABLE CHARGE </td><td>: {{data.RC}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER NO.</td><td>: {{data.PoNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE REF. NO.</td><td>: {{data.PoRNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER DATE</td><td>: {{data.PoDate}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DESIGN NO.</td><td>: {{data.DesignNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DELIVERY CHALLAN NO.</td><td>: {{data.DcNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PLACE OF SUPPLY</td><td>: {{data.Place}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DOCUMENTS THROUGH</td><td>: {{data.DT}}</td></tr>
+                            
+                        
+                    </table>
+
+                    
+
+            </td>
+            
+        </tr>
+    
+</table>
+<table id="tbody" style="margin-top: 6px;">
+        <tr class="sno">
+            <th style="width: 1%;"><b style="font-weight: bold;">S.NO</b></th>
+            <th style="width: 33.8%;"><b style="font-weight: bold;">DESCRIPTION</b></th>
+            <th style="width: 11%;"><b style="font-weight: bold;">HSN CODE</b></th>
+            <th style="width: 8%;"><b style="font-weight: bold;">QTY</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">RATE/UNIT</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">AMOUNT</b></th>
+        </tr>
+            <tr ng-repeat="detail in data.details" class="tr" >
+                <td style="padding-top: 3px;padding-left: 10px;">{{$index+1}}.</td>
+                <td style="text-align: left;padding-top: 3px;padding-left: 10px;">{{detail.IName}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.HSN}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.Qty}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Rate| currency : "" : 2}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Amount| currency : "" : 2}}</td>
+            </tr>
+            <tr id="tbody2" class="tr"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            
+           
+            
+
+            
+            <tr>
+                <td></td>
+                <td style="text-align: right;font-size: 11px;"><b style="font-weight: bold;">SUB TOTAL</b></td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;">{{data.Qty}}</td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;text-align: right;">{{data.Amount| currency : "" : 2}}</td>
+            </tr>
+    
+            <tr>
+            <td colspan="3">
+                <p style="font-size: 11px;margin-top: -5px;">**** Rupees {{data.Total|words}} Only</p>
+                <p style="text-align: center;margin-bottom: 3px;margin-top: -10px;"><b><u>Terms & Conditions</u></b></p>
+                <p style="font-size: 11px;line-height: 15px;    ">GOODS ONCE SOLD WILL NOT BE TAKEN BACK OR REPLACED.<br>
+                PAYMENTS SHALL BE MADE WITH IN 30 DAYS OF BILL DATE.<br>
+                ALL DISPUTES ARE SUBJECTED TO TIRUPUR JURISDICTION.<br>
+                ALL PAYMENT SHOULD BE MADE BY ACCOUNT PAYEE CHEQUE OR DRAFT.<br>
+                ALL PAYMENT SHOULD BE IN FAVOUR OF "Jayabharathi Labels". </p>
+            </td>
+
+            <td colspan="3">
+                <p style="line-height: 18px;font-size: 0.85em;margin-left: -2px;margin-bottom: -10px;">
+                    <b>Discount</b><b style="float: right;">    0.00</b><br>
+                    <b>Taxable Net Value</b><b style="float: right;">  {{data.Amount| currency : "" : 2}}</b><br>
+                    <b>CGST {{data.details[0].RCGST}}%</b><b style="float: right;"> {{data.CGST| currency : "" : 2}}</b><br>
+                    <b>SGST {{data.details[0].RSGST}}%</b><b style="float: right;"> {{data.SGST| currency : "" : 2}}</b><br>
+                    <b>IGST {{data.details[0].RIGST}}%</b><b style="float: right;"> {{data.IGST| currency : "" : 2}}</b><br>
+                    <!-- <b>Others</b><b style="float: right;">  </b><br> -->
+                    <b>Round off</b><b style="float: right;">   {{data.Round| currency : "" : 2}}</b><br>
+                    <b>Invoice Grand Total(Rs)</b><b style="float: right;"> {{data.Total| currency : "" : 2}}</b><br>
+                </p>
+            </td>
+            
+        </tr>
+    
+</table>
+
+<table style="margin-top: 6px;">
+        
+            <tr >
+                <td style="width: 50%;">
+                <h5 style="line-height: 21px;font-size: 11px;margin-top: -4px;"><b style="font-weight: bold;"><u>FOR NEFT OR RTGS:<br>JAYABHARATHI LABELS (BANK DETAILS)</u></b></h5>
+                <h6 style="line-height: 16px;margin-bottom: 0px;font-size: 11px;">
+                    <b style="padding-right: 45px;">BANK NAME   </b>:   SYNDICATE BANK<br>
+                    <b style="padding-right: 67px;">BRANCH      </b>:   TIRUPUR<br>
+                    <b style="padding-right: 20px;">ACCOUNT NAME    </b>:   JAYABHARATHI LABELS<br>
+                    <b style="padding-right: 34px;">ACCOUNT NO.    </b>:   61301010000147<br>
+                    <b style="padding-right: 54px;">IFSC CODE   </b>:   SYNB0006130<br>
+
+                  <!--   <b style="padding-right: 61px;">GSTIN No.       </b>:   33058552455<br>
+                    <b style="padding-right: 82px;">STATE       </b>:   TAMILNADU
+                    <b style="float: right">STATE CODE : 33 </b>    
+                             -->
+                    
+                </h6>
+            </td>
+            
+            <td style="padding-top: 0px;">
+                <h5 style="padding-left: 25px;"> <b style="float: right;font-size: 14px;"> For JAYABHARATHI LABELS </b></h5>
+                
+                <h5 style="float: right;margin-top: 82px;font-size: 12px;"><span style="float: right"> Authorized Signature </span></h5>
+            </td>
+            
+        </tr>
+    
+</table>
+
+</div>
+</div>
+</div>
+
+    <div class="page-break pdf-page size-a4">
+        <div class="pdf-header">
+
+
+<div class="container" align="center" style="padding-left: 50px;padding-right: 50px;">
+<h5 style="margin-top: 205px;font-size: 12px;margin-bottom: 0;"><b>INVOICE DUPLICATE COPY</b></h5>
+
+<table >
+        <tr>
+            <th style="text-align: center;font-size: 13px;width: 49%;font-weight: bold;">BUYER'S BILLING NAME AND ADDRESS </th>
+            <th style="text-align: center;font-size: 13px;font-weight: bold;">INVOICE AND PURCHASE ORDER DETAILS</th>
+            
+        </tr>
+            <tr>
+            <td>
+                <p style="font-size: 12px;line-height: 17px;">{{data.CName}}<br>
+                <c style="white-space: pre-line;">{{data.Address}}</c>
+                <br><br>
+
+                
+                <b>GSTIN :</b> {{data.TIN}}<br>
+                <b>STATE :</b> {{states[data.State].Name}} <span style="float: right;"><b>STATE CODE :</b> {{states[data.State].code}}</span>
+                </p>
+            </td>
+            <td>
+                
+
+                    <table class="inv" style="border: none;">
+                        
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE NO.</td><td>: {{data.InvNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE DATE</td><td>: {{data.Date*1000|date:'dd.MM.yyyy'}}</td></tr>
+                             <tr><td style="font-weight: bold;width: 45%;">REVERSABLE CHARGE </td><td>: {{data.RC}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER NO.</td><td>: {{data.PoNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE REF. NO.</td><td>: {{data.PoRNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER DATE</td><td>: {{data.PoDate}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DESIGN NO.</td><td>: {{data.DesignNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DELIVERY CHALLAN NO.</td><td>: {{data.DcNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PLACE OF SUPPLY</td><td>: {{data.Place}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DOCUMENTS THROUGH</td><td>: {{data.DT}}</td></tr>
+                            
+                        
+                    </table>
+
+                    
+
+            </td>
+            
+        </tr>
+    
+</table>
+<table id="tbody" style="margin-top: 6px;">
+        <tr class="sno">
+            <th style="width: 1%;"><b style="font-weight: bold;">S.NO</b></th>
+            <th style="width: 33.8%;"><b style="font-weight: bold;">DESCRIPTION</b></th>
+            <th style="width: 11%;"><b style="font-weight: bold;">HSN CODE</b></th>
+            <th style="width: 8%;"><b style="font-weight: bold;">QTY</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">RATE/UNIT</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">AMOUNT</b></th>
+        </tr>
+            <tr ng-repeat="detail in data.details" class="tr" >
+                <td style="padding-top: 3px;padding-left: 10px;">{{$index+1}}.</td>
+                <td style="text-align: left;padding-top: 3px;padding-left: 10px;">{{detail.IName}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.HSN}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.Qty}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Rate| currency : "" : 2}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Amount| currency : "" : 2}}</td>
+            </tr>
+            <tr id="tbody3" class="tr"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            
+           
+            
+
+            
+            <tr>
+                <td></td>
+                <td style="text-align: right;font-size: 11px;"><b style="font-weight: bold;">SUB TOTAL</b></td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;">{{data.Qty}}</td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;text-align: right;">{{data.Amount| currency : "" : 2}}</td>
+            </tr>
+    
+            <tr>
+            <td colspan="3">
+                <p style="font-size: 11px;margin-top: -5px;">**** Rupees {{data.Total|words}} Only</p>
+                <p style="text-align: center;margin-bottom: 3px;margin-top: -10px;"><b><u>Terms & Conditions</u></b></p>
+                <p style="font-size: 11px;line-height: 15px;    ">GOODS ONCE SOLD WILL NOT BE TAKEN BACK OR REPLACED.<br>
+                PAYMENTS SHALL BE MADE WITH IN 30 DAYS OF BILL DATE.<br>
+                ALL DISPUTES ARE SUBJECTED TO TIRUPUR JURISDICTION.<br>
+                ALL PAYMENT SHOULD BE MADE BY ACCOUNT PAYEE CHEQUE OR DRAFT.<br>
+                ALL PAYMENT SHOULD BE IN FAVOUR OF "Jayabharathi Labels". </p>
+            </td>
+
+            <td colspan="3">
+                <p style="line-height: 18px;font-size: 0.85em;margin-left: -2px;margin-bottom: -10px;">
+                    <b>Discount</b><b style="float: right;">    0.00</b><br>
+                    <b>Taxable Net Value</b><b style="float: right;">  {{data.Amount| currency : "" : 2}}</b><br>
+                    <b>CGST {{data.details[0].RCGST}}%</b><b style="float: right;"> {{data.CGST| currency : "" : 2}}</b><br>
+                    <b>SGST {{data.details[0].RSGST}}%</b><b style="float: right;"> {{data.SGST| currency : "" : 2}}</b><br>
+                    <b>IGST {{data.details[0].RIGST}}%</b><b style="float: right;"> {{data.IGST| currency : "" : 2}}</b><br>
+                    <!-- <b>Others</b><b style="float: right;">  </b><br> -->
+                    <b>Round off</b><b style="float: right;">   {{data.Round| currency : "" : 2}}</b><br>
+                    <b>Invoice Grand Total(Rs)</b><b style="float: right;"> {{data.Total| currency : "" : 2}}</b><br>
+                </p>
+            </td>
+            
+        </tr>
+    
+</table>
+
+<table style="margin-top: 6px;">
+        
+            <tr >
+                <td style="width: 50%;">
+                <h5 style="line-height: 21px;font-size: 11px;margin-top: -4px;"><b style="font-weight: bold;"><u>FOR NEFT OR RTGS:<br>JAYABHARATHI LABELS (BANK DETAILS)</u></b></h5>
+                <h6 style="line-height: 16px;margin-bottom: 0px;font-size: 11px;">
+                    <b style="padding-right: 45px;">BANK NAME   </b>:   SYNDICATE BANK<br>
+                    <b style="padding-right: 67px;">BRANCH      </b>:   TIRUPUR<br>
+                    <b style="padding-right: 20px;">ACCOUNT NAME    </b>:   JAYABHARATHI LABELS<br>
+                    <b style="padding-right: 34px;">ACCOUNT NO.    </b>:   61301010000147<br>
+                    <b style="padding-right: 54px;">IFSC CODE   </b>:   SYNB0006130<br>
+
+                  <!--   <b style="padding-right: 61px;">GSTIN No.       </b>:   33058552455<br>
+                    <b style="padding-right: 82px;">STATE       </b>:   TAMILNADU
+                    <b style="float: right">STATE CODE : 33 </b>    
+                             -->
+                    
+                </h6>
+            </td>
+            
+            <td style="padding-top: 0px;">
+                <h5 style="padding-left: 25px;"> <b style="float: right;font-size: 14px;"> For JAYABHARATHI LABELS </b></h5>
+                
+                <h5 style="float: right;margin-top: 82px;font-size: 12px;"><span style="float: right"> Authorized Signature </span></h5>
+            </td>
+            
+        </tr>
+    
+</table>
+
+</div>
+</div>
+</div>
+
+    <div class="page-break pdf-page size-a4">
+        <div class="pdf-header">
+
+
+<div class="container" align="center" style="padding-left: 50px;padding-right: 50px;">
+<h5 style="margin-top: 205px;font-size: 12px;margin-bottom: 0;"><b>INVOICE ACCOUNTS COPY</b></h5>
+
+<table >
+        <tr>
+            <th style="text-align: center;font-size: 13px;width: 49%;font-weight: bold;">BUYER'S BILLING NAME AND ADDRESS </th>
+            <th style="text-align: center;font-size: 13px;font-weight: bold;">INVOICE AND PURCHASE ORDER DETAILS</th>
+            
+        </tr>
+            <tr>
+            <td>
+                <p style="font-size: 12px;line-height: 17px;">{{data.CName}}<br>
+                <c style="white-space: pre-line;">{{data.Address}}</c>
+                <br><br>
+
+                
+                <b>GSTIN :</b> {{data.TIN}}<br>
+                <b>STATE :</b> {{states[data.State].Name}} <span style="float: right;"><b>STATE CODE :</b> {{states[data.State].code}}</span>
+                </p>
+            </td>
+            <td>
+                
+
+                    <table class="inv" style="border: none;">
+                        
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE NO.</td><td>: {{data.InvNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">INVOICE DATE</td><td>: {{data.Date*1000|date:'dd.MM.yyyy'}}</td></tr>
+                             <tr><td style="font-weight: bold;width: 45%;">REVERSABLE CHARGE </td><td>: {{data.RC}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER NO.</td><td>: {{data.PoNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE REF. NO.</td><td>: {{data.PoRNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PURCHASE ORDER DATE</td><td>: {{data.PoDate}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DESIGN NO.</td><td>: {{data.DesignNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DELIVERY CHALLAN NO.</td><td>: {{data.DcNo}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">PLACE OF SUPPLY</td><td>: {{data.Place}}</td></tr>
+                            <tr><td style="font-weight: bold;width: 45%;">DOCUMENTS THROUGH</td><td>: {{data.DT}}</td></tr>
+                            
+                        
+                    </table>
+
+                    
+
+            </td>
+            
+        </tr>
+    
+</table>
+<table id="tbody" style="margin-top: 6px;">
+        <tr class="sno">
+            <th style="width: 1%;"><b style="font-weight: bold;">S.NO</b></th>
+            <th style="width: 33.8%;"><b style="font-weight: bold;">DESCRIPTION</b></th>
+            <th style="width: 11%;"><b style="font-weight: bold;">HSN CODE</b></th>
+            <th style="width: 8%;"><b style="font-weight: bold;">QTY</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">RATE/UNIT</b></th>
+            <th style="width: 10%;"><b style="font-weight: bold;">AMOUNT</b></th>
+        </tr>
+            <tr ng-repeat="detail in data.details" class="tr" >
+                <td style="padding-top: 3px;padding-left: 10px;">{{$index+1}}.</td>
+                <td style="text-align: left;padding-top: 3px;padding-left: 10px;">{{detail.IName}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.HSN}}</td>
+                <td style="padding-top: 3px;padding-left: 10px;">{{detail.Qty}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Rate| currency : "" : 2}}</td>
+                <td style="text-align: right;padding-top: 3px;padding-left: 10px;">{{detail.Amount| currency : "" : 2}}</td>
+            </tr>
+            <tr id="tbody4" class="tr"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            
+           
+            
+
+            
+            <tr>
+                <td></td>
+                <td style="text-align: right;font-size: 11px;"><b style="font-weight: bold;">SUB TOTAL</b></td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;">{{data.Qty}}</td>
+                <td style="text-align: center;font-size: 11px;"></td>
+                <td style="text-align: center;font-size: 11px;text-align: right;">{{data.Amount| currency : "" : 2}}</td>
+            </tr>
+    
+            <tr>
+            <td colspan="3">
+                <p style="font-size: 11px;margin-top: -5px;">**** Rupees {{data.Total|words}} Only</p>
+                <p style="text-align: center;margin-bottom: 3px;margin-top: -10px;"><b><u>Terms & Conditions</u></b></p>
+                <p style="font-size: 11px;line-height: 15px;    ">GOODS ONCE SOLD WILL NOT BE TAKEN BACK OR REPLACED.<br>
+                PAYMENTS SHALL BE MADE WITH IN 30 DAYS OF BILL DATE.<br>
+                ALL DISPUTES ARE SUBJECTED TO TIRUPUR JURISDICTION.<br>
+                ALL PAYMENT SHOULD BE MADE BY ACCOUNT PAYEE CHEQUE OR DRAFT.<br>
+                ALL PAYMENT SHOULD BE IN FAVOUR OF "Jayabharathi Labels". </p>
+            </td>
+
+            <td colspan="3">
+                <p style="line-height: 18px;font-size: 0.85em;margin-left: -2px;margin-bottom: -10px;">
+                    <b>Discount</b><b style="float: right;">    0.00</b><br>
+                    <b>Taxable Net Value</b><b style="float: right;">  {{data.Amount| currency : "" : 2}}</b><br>
+                    <b>CGST {{data.details[0].RCGST}}%</b><b style="float: right;"> {{data.CGST| currency : "" : 2}}</b><br>
+                    <b>SGST {{data.details[0].RSGST}}%</b><b style="float: right;"> {{data.SGST| currency : "" : 2}}</b><br>
+                    <b>IGST {{data.details[0].RIGST}}%</b><b style="float: right;"> {{data.IGST| currency : "" : 2}}</b><br>
+                    <!-- <b>Others</b><b style="float: right;">  </b><br> -->
+                    <b>Round off</b><b style="float: right;">   {{data.Round| currency : "" : 2}}</b><br>
+                    <b>Invoice Grand Total(Rs)</b><b style="float: right;"> {{data.Total| currency : "" : 2}}</b><br>
+                </p>
+            </td>
+            
+        </tr>
+    
+</table>
+
+<table style="margin-top: 6px;">
+        
+            <tr >
+                <td style="width: 50%;">
+                <h5 style="line-height: 21px;font-size: 11px;margin-top: -4px;"><b style="font-weight: bold;"><u>FOR NEFT OR RTGS:<br>JAYABHARATHI LABELS (BANK DETAILS)</u></b></h5>
+                <h6 style="line-height: 16px;margin-bottom: 0px;font-size: 11px;">
+                    <b style="padding-right: 45px;">BANK NAME   </b>:   SYNDICATE BANK<br>
+                    <b style="padding-right: 67px;">BRANCH      </b>:   TIRUPUR<br>
+                    <b style="padding-right: 20px;">ACCOUNT NAME    </b>:   JAYABHARATHI LABELS<br>
+                    <b style="padding-right: 34px;">ACCOUNT NO.    </b>:   61301010000147<br>
+                    <b style="padding-right: 54px;">IFSC CODE   </b>:   SYNB0006130<br>
+
+                  <!--   <b style="padding-right: 61px;">GSTIN No.       </b>:   33058552455<br>
+                    <b style="padding-right: 82px;">STATE       </b>:   TAMILNADU
+                    <b style="float: right">STATE CODE : 33 </b>    
+                             -->
+                    
+                </h6>
+            </td>
+            
+            <td style="padding-top: 0px;">
+                <h5 style="padding-left: 25px;"> <b style="float: right;font-size: 14px;"> For JAYABHARATHI LABELS </b></h5>
+                
+                <h5 style="float: right;margin-top: 82px;font-size: 12px;"><span style="float: right"> Authorized Signature </span></h5>
+            </td>
+            
+        </tr>
+    
+</table>
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+    <style>
+
+        .pdf-page {
+            margin: 0 auto;
+            box-sizing: border-box;
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,.3);
+            background-color: #fff;
+            color: #333;
+            position: relative;
+
+        }
+
+
+
+        .size-a4 { width: 8.3in; height: 11.7in; }
+
+
+             table {
+        width:100%;
+    }
+     table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-family: 'DejaVu Sans', serif;
+    }
+     th {
+        padding: 10px;
+        text-align: left;
+        font-family: 'DejaVu Sans', serif;
+    }
+
+     td {
+        padding: 10px;
+        text-align: left;
+        font-family: 'DejaVu Sans', serif;
+    }
+    .container{
+         width: 21cm;
+  height: 29.7cm; 
+  font-family: 'DejaVu Sans', serif;
+  
+    }
+
+.tr td{
+font-size: 11px;
+text-align: center;
+border-bottom: 0;
+border-top: 0;
+padding-bottom: 0px;
+font-family: 'DejaVu Sans', serif;
+}
+
+.sno th{
+    text-align: center;
+    font-size: 11px;
+}
+
+.inv td{
+    padding: 0px;
+    border: none;
+/*    font-size: 12px;
+*/    font-size: 0.84em;
+    line-height: 16px;
+    
+    font-family: 'DejaVu Sans', serif;
+}
+
+
+    </style>
+    <script>
+    kendo.pdf.defineFont({
+                "DejaVu Sans"             : "https://kendo.cdn.telerik.com/2016.2.607/styles/fonts/DejaVu/DejaVuSans.ttf"
+        });
+
+</script>
+<!-- 
+<link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+
+
+</div>
